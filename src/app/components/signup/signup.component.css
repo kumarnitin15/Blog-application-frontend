@@ -1,0 +1,52 @@
+#grid {
+    margin-top: 10px;
+}
+
+#appName {
+    letter-spacing: 4px;
+    font-family: serif;
+    display: inline-block;
+}
+
+#text {
+    margin-top: 10px;
+    float: right;
+    color: white;
+    font-size: 17px;
+}
+
+#loginLink {
+    margin-left: 5px;
+}
+
+.leftHeader {
+    color: white;
+    font-size: 25px;
+    letter-spacing: 1px;
+    margin-bottom: 10%;
+}
+
+#signupFormDiv {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1%;
+}
+
+#signupBtn {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #2cb5e8;
+    font-size: 17px;
+    color: white;
+    letter-spacing: 2px;
+    padding: 15px;
+}
+
+#loginLink {
+    cursor: pointer;
+}
+
+.errorMessage {
+    color: red; 
+    margin-bottom: 0 !important;
+}

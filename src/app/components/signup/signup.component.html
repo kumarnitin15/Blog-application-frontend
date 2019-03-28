@@ -1,0 +1,45 @@
+<div class="ui centered grid" id="grid">
+  <div class="row">
+    <div class="nine wide column">
+      <h1 id="appName"><strong style="color:white">BLOGAPP</strong></h1>
+      <p id="text">Already have an account? <a (click)="Login()" id="loginLink">Login</a></p>
+    </div>
+  </div>
+  <div class="row" style="margin-top:20px;">
+    <div class="five wide column">
+      <p class="leftHeader">Sign up for free and start reading and writing today</p>
+      <p class="leftHeader">Share what's new in your life, write about it</p>
+      <p class="leftHeader">Follow and get followed by amazing writers around the world</p>
+    </div>
+    <div class="four wide column" id="signupFormDiv">
+      <form class="ui form" [formGroup]="signupForm" novalidate (ngSubmit)="SignupUser()" id="signupForm">
+        <div class="field required">
+          <label>First Name</label>
+          <input type="text" formControlName="firstName" placeholder="First Name">
+        </div>
+        <div class="field required">
+          <label>Last Name</label>
+          <input type="text" formControlName="lastName" placeholder="Last Name">
+        </div>
+        <div class="field required">
+          <label>Username</label>
+          <input type="text" formControlName="username" placeholder="Username">
+        </div>
+        <div class="field required">
+          <label>Email Address</label>
+          <input type="email" formControlName="email" placeholder="Email Address">
+        </div>
+        <div class="field required">
+          <label>About Me</label>
+          <textarea rows="3" formControlName="aboutMe" placeholder="It can be changed later"></textarea>
+        </div>
+        <div class="field required">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="Password">
+        </div>
+        <p class="errorMessage">{{ errorMessage }}</p>
+        <button class="ui button" type="submit" [disabled]="!signupForm.valid" id="signupBtn">CREATE FREE ACCOUNT</button>
+      </form>
+    </div>
+  </div>
+</div>

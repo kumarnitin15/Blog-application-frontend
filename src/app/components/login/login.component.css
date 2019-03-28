@@ -1,0 +1,60 @@
+#appName {
+    margin-top: 50px;
+    text-align: center;
+    letter-spacing: 4px;
+    font-family: serif;
+}
+
+#loginDiv {
+    background-color: white;
+    border-radius: 8px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#loginText {
+    letter-spacing: 2px;
+    text-align: center;
+    color: #2cb5e8;
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+#loginFormDiv {
+    margin: 20px;
+}
+
+.field {
+    margin: 10px;
+}
+
+#loginBtn {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #2cb5e8;
+    font-size: 20px;
+    color: white;
+}
+
+#footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#footerText {
+    color: gray;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+}
+
+#signupLink {
+    cursor: pointer;
+}
+
+.errorMessage {
+    color: red; 
+    margin-bottom: 0 !important;
+}

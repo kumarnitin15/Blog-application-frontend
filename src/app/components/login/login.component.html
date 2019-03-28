@@ -1,0 +1,29 @@
+<h1 id="appName"><strong style="color:white">BLOGAPP</strong></h1>
+<div class="ui centered grid">
+  <div class="four wide column" id="loginDiv">
+    <p id="loginText">Log in to your account</p>
+    <div id="loginFormDiv">
+      <form class="ui form" id="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="LoginUser()">
+        <div class="field">
+          <div class="ui left icon input">
+            <input formControlName="username" type="text" placeholder="Username">
+            <i class="user icon"></i>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <input formControlName="password" type="password" placeholder="Password">
+            <i class="lock icon"></i>
+          </div>
+        </div>  
+        <div>
+          <p class="errorMessage">{{ errorMessage }}</p>
+          <button class="ui button" type="submit" [disabled]="!loginForm.valid" id="loginBtn">Log In</button>
+        </div>
+      </form>
+      <div id="footer">
+        <p id="footerText">New to BlogApp? <a (click)="Register()" id="signupLink">SignUp</a></p>
+      </div>
+    </div>
+  </div>
+</div>
