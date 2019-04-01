@@ -1,0 +1,28 @@
+<div class="ui segment wrapper">
+  <app-navbar></app-navbar>
+</div>
+  
+<div class="ui centered grid">
+  <!-- Side component -->
+  <div class="four wide column sideComponent">
+    <app-side></app-side>
+  </div>
+  <!-- Main component -->
+  <div class="eight wide column" style="margin-top:60px;">
+    <div *ngFor="let user of users; let i = index">
+    <div *ngIf="user._id !== userId" class="ui grid" style="margin-bottom: 60px;">
+      <div class="two wide column" style="margin-right: 15px !important; padding:0 !important;">
+        <img class="ui circular image" width="75" height="75" src="{{ user.profilePic }}">
+      </div>
+      <div class="thirteen wide column" style="padding: 0 !important; margin-left:0 !important;">
+        <p style="margin-bottom:5px; font-size: 17px; word-spacing: 1px; cursor: pointer;" (click)="OpenProfile(user._id)" onmouseover="this.style.color='#2cb5e8'" onmouseout="this.style.color='black'">
+          {{ user.firstName }} {{ user.lastName }}
+        </p>
+        <p style="margin-bottom:5px; color: #A9A9A9; word-spacing: 2px;">{{ user.aboutMe }}</p>
+        <a *ngIf="IsFollowing(user._id)" style="color: #03a87c; cursor: text;"><i class="check icon" style="margin-right: 5px;"></i><span>Following</span></a>
+        <a *ngIf="!IsFollowing(user._id)" class="{{i}}" (click)="FollowUser(user._id, i)" style="color:#2cb5e8; cursor: pointer;">Follow</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
