@@ -1,0 +1,27 @@
+.navbar {
+    margin-bottom: 0 !important;
+}
+
+.navbar a {
+    color: white !important;
+}
+
+.welcomeHeader {
+    color: white !important;
+    font-display: Sans-serif;
+    font-style: italic;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.searchDiv {
+    width: 20%;
+}
+
+.searchInputDiv {
+    width: 100%;
+}
+
+.profilePicDiv {
+    margin-bottom: 20px;
+}
