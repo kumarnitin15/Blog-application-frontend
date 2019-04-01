@@ -1,0 +1,31 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from '../components/home/home.component';
+import { AuthGuard } from '../services/auth.guard';
+import { MyblogsComponent } from '../components/myblogs/myblogs.component';
+import { NewBlogComponent } from '../components/new-blog/new-blog.component';
+
+const routes : Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'myblogs',
+    component: MyblogsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'new-blog',
+    component: NewBlogComponent,
+    canActivate: [AuthGuard]
+  }
+] 
+
+@NgModule({
+  declarations: [],
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class BlogRoutingModule { }
