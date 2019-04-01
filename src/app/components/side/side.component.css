@@ -1,0 +1,19 @@
+.sideMenu {
+    width: 100%;
+    border: none;
+}
+
+.active {
+    background-color: #f2f2f2 !important;
+}
+
+.sideMenu {
+    width: 100%;
+    border: none;
+}
+
+.sideIcon {
+    float: right;
+    color: #2cb5e8;
+    font-size: 17px !important;
+}

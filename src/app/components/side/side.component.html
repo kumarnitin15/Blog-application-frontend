@@ -1,0 +1,27 @@
+<div class="ui vertical menu sideMenu">
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/home']" class="item">Home<i class="home icon sideIcon"></i></a>
+    </div>
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/myblogs']" class="item">MyBlogs<i class="newspaper icon sideIcon"></i></a>
+    </div>
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/people']" class="item">People<i class="users icon sideIcon"></i></a>
+    </div>
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/followers']" class="item">Followers<i class="users icon sideIcon"></i></a>
+    </div>
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/following']" class="item">Following<i class="user icon sideIcon"></i></a>
+    </div>
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/notifications']" class="item">
+          Notifications
+          <sup><div style="background-color: #2cb5e8; width: 7px; height: 7px; border-radius: 50%; display: inline-block;"></div></sup>
+          <i class="stopwatch icon sideIcon"></i>
+        </a>
+    </div>
+    <div [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/new-blog']" class="item">New Blog<i class="pencil alternate icon sideIcon"></i></a>
+    </div>
+</div>
