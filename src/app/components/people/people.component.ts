@@ -32,7 +32,7 @@ export class PeopleComponent implements OnInit {
 
   IsFollowing(userId) {
     for(let i=0; i<this.user.following.length; i++) {
-      if(this.user.following[i] === userId)
+      if(this.user.following[i]._id === userId)
       return true;
     }
     return false;
