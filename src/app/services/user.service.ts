@@ -30,4 +30,8 @@ export class UserService {
   unfollowUser(userId): Observable<any> {
     return this.http.post(`${BASEURL}/unfollow-user`, {userId});
   }
+
+  addImage(image): Observable<any> {
+    return this.http.post(`${BASEURL}/upload-image`, {image});
+  }
 }
