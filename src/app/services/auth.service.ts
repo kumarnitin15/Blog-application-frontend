@@ -18,4 +18,8 @@ export class AuthService {
   loginUser(body): Observable<any> {
     return this.http.post(`${BASEURL}/login`, body);
   }
+
+  changePassword(body): Observable<any> {
+    return this.http.post(`${BASEURL}/change-password`, body);
+  }
 }
