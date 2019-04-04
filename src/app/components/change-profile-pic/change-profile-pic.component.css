@@ -1,0 +1,70 @@
+.wrapper {
+    background-image: linear-gradient(#9fb8ad, #2cb5e8) !important;
+    border-radius: 0 !important;
+    padding-left: 10% !important;
+    padding-right: 10% !important;
+}
+
+.sideComponent {
+    margin-top: 60px;
+}
+
+/* Form Styles */
+
+.form-container {
+    margin: 0;
+    margin-left: 8%;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+.input-file-container {
+    position: relative;
+    width: 225px;
+  } 
+.input-file-trigger {
+    display: block;
+    padding: 14px 45px;
+    background: #39D2B4;
+    color: #fff;
+    font-size: 1em;
+    transition: all .4s;
+    cursor: pointer;
+}
+.input-file {
+    position: absolute;
+    top: 0; left: 0;
+    width: 225px;
+    opacity: 0;
+    padding: 14px 0;
+    cursor: pointer;
+}
+.input-file:hover + .input-file-trigger,
+.input-file:focus + .input-file-trigger,
+.input-file-trigger:hover,
+.input-file-trigger:focus {
+    background: #34495E;
+    color: #39D2B4;
+}
+  
+.file-return {
+    margin: 0;
+}
+
+.file-return:not(:empty) {
+    margin: 1em 0;
+}
+
+.file-return {
+    font-style: italic;
+    font-size: .9em;
+    font-weight: bold;
+}
+
+.file-return:not(:empty):before {
+    content: "Selected file: ";
+    font-style: normal;
+    font-weight: normal;
+}
