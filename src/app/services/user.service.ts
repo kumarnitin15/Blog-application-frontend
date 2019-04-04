@@ -34,4 +34,29 @@ export class UserService {
   addImage(image): Observable<any> {
     return this.http.post(`${BASEURL}/upload-image`, {image});
   }
+
+  getProfilePic(userId): Observable<any> {
+    return this.http.get(`${BASEURL}/profile-pic/${userId}`);
+  }
+
+  getNotifs(): Observable<any> {
+    return this.http.get(`${BASEURL}/notifs`);
+  }
+
+  markAllNotifs(): Observable<any> {
+    return this.http.post(`${BASEURL}/markAllNotifs`, {});
+  }
+
+  markNotif(index): Observable<any> {
+    return this.http.post(`${BASEURL}/markNotif`, {index});  
+  }
+
+  deleteNotif(index): Observable<any> {
+    return this.http.post(`${BASEURL}/deleteNotif`, {index});
+  }
+
+  deleteAllNotifs(): Observable<any> {
+    return this.http.post(`${BASEURL}/deleteAllNotifs`, {});
+  }
+
 }
