@@ -5,6 +5,9 @@ import { AuthGuard } from '../services/auth.guard';
 import { FollowersComponent } from '../components/followers/followers.component';
 import { FollowingComponent } from '../components/following/following.component';
 import { NotificationsComponent } from '../components/notifications/notifications.component';
+import { ProfileComponent } from '../components/profile/profile.component';
+import { ChangeProfilePicComponent } from '../components/change-profile-pic/change-profile-pic.component';
+import { ChangePasswordComponent } from '../components/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,21 @@ const routes: Routes = [
   {
     path: 'notifications',
     component: NotificationsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile/:userId',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'change-profile-pic',
+    component: ChangeProfilePicComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
     canActivate: [AuthGuard]
   }
 ]

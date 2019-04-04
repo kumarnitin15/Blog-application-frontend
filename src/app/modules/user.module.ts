@@ -5,9 +5,14 @@ import { CommonComponentsModule } from './common-components.module';
 import { NotificationsComponent } from '../components/notifications/notifications.component';
 import { FollowersComponent } from '../components/followers/followers.component';
 import { FollowingComponent } from '../components/following/following.component';
+import { ProfileComponent } from '../components/profile/profile.component';
+import { ChangeProfilePicComponent } from '../components/change-profile-pic/change-profile-pic.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ChangePasswordComponent } from '../components/change-password/change-password.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [PeopleComponent, NotificationsComponent, FollowersComponent, FollowingComponent],
-  imports: [CommonModule, CommonComponentsModule]
+  declarations: [PeopleComponent, NotificationsComponent, FollowersComponent, FollowingComponent, ProfileComponent, ChangeProfilePicComponent, ChangePasswordComponent],
+  imports: [CommonModule, CommonComponentsModule, FileUploadModule, FormsModule, ReactiveFormsModule]
 })
 export class UserModule { }
