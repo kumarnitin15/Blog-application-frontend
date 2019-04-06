@@ -8,6 +8,7 @@ import { NotificationsComponent } from '../components/notifications/notification
 import { ProfileComponent } from '../components/profile/profile.component';
 import { ChangeProfilePicComponent } from '../components/change-profile-pic/change-profile-pic.component';
 import { ChangePasswordComponent } from '../components/change-password/change-password.component';
+import { PhotosComponent } from '../components/photos/photos.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangePasswordComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'photos',
+    component: PhotosComponent,
     canActivate: [AuthGuard]
   }
 ]

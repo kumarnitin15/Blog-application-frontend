@@ -10,9 +10,10 @@ import { ChangeProfilePicComponent } from '../components/change-profile-pic/chan
 import { FileUploadModule } from 'ng2-file-upload';
 import { ChangePasswordComponent } from '../components/change-password/change-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PhotosComponent } from '../components/photos/photos.component';
 
 @NgModule({
-  declarations: [PeopleComponent, NotificationsComponent, FollowersComponent, FollowingComponent, ProfileComponent, ChangeProfilePicComponent, ChangePasswordComponent],
+  declarations: [PeopleComponent, NotificationsComponent, FollowersComponent, FollowingComponent, ProfileComponent, ChangeProfilePicComponent, ChangePasswordComponent, PhotosComponent],
   imports: [CommonModule, CommonComponentsModule, FileUploadModule, FormsModule, ReactiveFormsModule]
 })
 export class UserModule { }
