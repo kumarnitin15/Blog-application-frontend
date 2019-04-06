@@ -28,7 +28,7 @@
             <i *ngIf="!notification.read" class="tiny circle icon" style="color: #2cb5e8; float:right"></i>
           </div>
           <div class="extra content" style="margin-top: 10px;">
-            <a>{{ notification.senderName.firstName }} {{ notification.senderName.lastName }}</a>
+            <a (click)="OpenProfile(notification.sender)">{{ notification.senderName.firstName }} {{ notification.senderName.lastName }}</a>
             {{ notification.content }}
             <a *ngIf="notification.blog">{{ notification.blogTopic }}</a>
           </div>

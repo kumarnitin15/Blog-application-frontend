@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -15,7 +16,7 @@ export class NotificationsComponent implements OnInit {
   profilePics = [];
   unreadNotifs = 0;
 
-  constructor(private tokenService: TokenService, private userService: UserService) { }
+  constructor(private tokenService: TokenService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.GetNotifications();
@@ -59,6 +60,10 @@ export class NotificationsComponent implements OnInit {
     this.userService.deleteAllNotifs().subscribe(data => {
       this.GetNotifications();
     });
+  }
+
+  OpenProfile(userId) {
+    this.router.navigate(['profile',userId]);
   }
 
 }
