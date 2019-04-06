@@ -22,6 +22,7 @@ export class PhotosComponent implements OnInit {
   selectedFile: any;
   successMessage: String;
   errorMessage: String;
+  loading = true;
 
   constructor(private userService: UserService, private tokenService: TokenService) { }
 
@@ -29,6 +30,9 @@ export class PhotosComponent implements OnInit {
     this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
       this.user = data.user;
       this.images = this.user.images;
+      setTimeout(()=>{
+        this.loading = false;
+      },500);
     })
   }
 

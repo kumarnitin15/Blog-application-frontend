@@ -8,7 +8,10 @@
         <app-side></app-side>
     </div>
     <!-- Main component -->
-    <div class="eight wide column" style="margin-top:60px;">
+    <div *ngIf="loading" class="eight wide column" style="margin-top:60px;">
+      <h1><em style="color:#2cb5e8">Loading...</em></h1>
+    </div>
+    <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
       <div class="form-container">
         <form class="ui form">
           <div class="input-file-container">  

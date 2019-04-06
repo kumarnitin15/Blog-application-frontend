@@ -8,7 +8,13 @@
     <app-side></app-side>
   </div>
   <!-- Main component -->
-  <div class="eight wide column" style="margin-top:60px;">
+  <div *ngIf="loading" class="eight wide column" style="margin-top:60px;">
+      <h1><em style="color:#2cb5e8">Loading...</em></h1>
+  </div>
+  <div *ngIf="!loading && followers.length === 0" class="eight wide column" style="margin-top:60px;">
+      <h1><em style="color:#2cb5e8">You don't have any followers right now. Get popular, share your stories...</em></h1>
+  </div>
+  <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
     <div *ngFor="let user of followers; let i = index">
       <div *ngIf="user._id !== userId" class="ui grid" style="margin-bottom: 60px;">
         <div class="two wide column" style="margin-right: 15px !important; padding:0 !important;">

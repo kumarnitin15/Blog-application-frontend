@@ -15,6 +15,7 @@ export class NotificationsComponent implements OnInit {
   notifications = [];
   profilePics = [];
   unreadNotifs = 0;
+  loading = true;
 
   constructor(private tokenService: TokenService, private userService: UserService, private router: Router) { }
 
@@ -31,6 +32,9 @@ export class NotificationsComponent implements OnInit {
         if(!this.notifications[i].read)
           this.unreadNotifs++;
       }
+      setTimeout(()=>{
+        this.loading = false;
+      },500)
     });
   }
 

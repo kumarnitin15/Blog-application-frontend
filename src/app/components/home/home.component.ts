@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/services/token.service';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,10 @@ export class HomeComponent implements OnInit {
 
   user: any;
   blogs = [];
+  profilePics = [];
+  loading = true;
 
-  constructor(private tokenService: TokenService, private blogService: BlogService) { }
+  constructor(private tokenService: TokenService, private blogService: BlogService, private userService: UserService) { }
 
   ngOnInit() {
     document.querySelector('body').style.background = "";
@@ -23,7 +26,11 @@ export class HomeComponent implements OnInit {
 
   GetAllBlogs() {
     this.blogService.getAllBlogs().subscribe(data => {
+      this.profilePics = data.profilePics;
       this.blogs = data.blogs;
+      setTimeout(()=>{
+        this.loading = false;
+      },500)
     });
   }
 

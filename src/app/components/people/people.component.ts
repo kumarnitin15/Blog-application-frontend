@@ -13,6 +13,7 @@ export class PeopleComponent implements OnInit {
   users = [];
   user: any;
   userId: any;
+  loading = true;
 
   constructor(private userService: UserService, private tokenService: TokenService, private router: Router) { }
 
@@ -26,6 +27,9 @@ export class PeopleComponent implements OnInit {
       this.userService.getAllUsers().subscribe(data2 => {
         this.user = data1.user;
         this.users = data2.users;
+        setTimeout(()=>{
+          this.loading = false;
+        },500);
       });
     });
   }

@@ -12,6 +12,7 @@ export class FollowingComponent implements OnInit {
 
   following = [];
   user: any;
+  loading = true;
 
   constructor(private userService: UserService, private tokenService: TokenService, private router: Router) { }
 
@@ -23,6 +24,9 @@ export class FollowingComponent implements OnInit {
     this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
       this.user = data.user;
       this.following = this.user.following;
+      setTimeout(()=>{
+        this.loading = false;
+      },500)
     });
   }
 

@@ -12,6 +12,8 @@ export class MyblogsComponent implements OnInit {
 
   user: any;
   myblogs = [];
+  profilePic: String;
+  loading = true;
 
   constructor(private tokenService: TokenService, private userService: UserService) {}
 
@@ -24,6 +26,10 @@ export class MyblogsComponent implements OnInit {
   GetUserBlogs() {
     this.userService.getUserBlogs(this.user._id).subscribe(data => {
       this.myblogs = data.blogs;
+      this.profilePic = data.profilePic;
+      setTimeout(()=>{
+        this.loading = false;
+      },500)
     });
   }
 

@@ -12,6 +12,7 @@ export class FollowersComponent implements OnInit {
 
   followers = [];
   user: any;
+  loading = true;
 
   constructor(private userService: UserService, private tokenService: TokenService, private router: Router) { }
 
@@ -23,6 +24,9 @@ export class FollowersComponent implements OnInit {
     this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
       this.user = data.user;
       this.followers = this.user.followers;
+      setTimeout(()=>{
+        this.loading = false;
+      },500)
     });
   }
 
