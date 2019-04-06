@@ -14,4 +14,13 @@ export class BlogService {
   getAllBlogs(): Observable<any> {
     return this.http.get(`${BASEURL}/blogs`);
   }
+
+  createNewBlog(topic, caption, tags, mainImage): Observable<any> {
+    return this.http.post(`${BASEURL}/create-new-blog`, {
+      topic,
+      caption,
+      tags,
+      mainImage
+    });
+  }
 }
