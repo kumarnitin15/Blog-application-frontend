@@ -59,4 +59,8 @@ export class UserService {
     return this.http.post(`${BASEURL}/deleteAllNotifs`, {});
   }
 
+  updateProfilePic(imgSrc) {
+    return this.http.post(`${BASEURL}/update-profile-pic`, {imgSrc});
+  }
+
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
 import { UserService } from 'src/app/services/user.service';
-
-const URL = 'http://localhost:3000/api/blogapp/upload-image';
+import { TokenService } from 'src/app/services/token.service';
+declare var $ : any;
 
 @Component({
   selector: 'app-change-profile-pic',
@@ -11,59 +10,60 @@ const URL = 'http://localhost:3000/api/blogapp/upload-image';
 })
 export class ChangeProfilePicComponent implements OnInit {
 
-  uploader: FileUploader = new FileUploader({
-    url: URL,
-    disableMultipart: true
-  });
-
-  selectedFile: any;
+  user: any;
+  images = [];
   successMessage: String;
   errorMessage: String;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private tokenService: TokenService) { }
 
   ngOnInit() {
+    this.GetImages();
+    this.init();
   }
 
-  OnFileSelected(event) {
-    let fileInput = <any>document.querySelector( ".input-file" );
-    let the_return = document.querySelector(".file-return");;
-    let path = fileInput.value.split('\\');
-    the_return.innerHTML = path[path.length-1];
-    document.querySelector('.updateBtn').classList.remove('disabled');
-    const file: File = event[0];
-    this.ReadAsBase64(file).then(result => {
-      this.selectedFile = result;
-    }).catch(err => console.log(err));
-  }
-
-  Upload() {
-    document.querySelector('.file-return').innerHTML = '';
-    document.querySelector('.updateBtn').classList.add('disabled');
-    if(this.selectedFile) {
-      document.querySelector('form').classList.add('loading');
-      this.userService.addImage(this.selectedFile).subscribe(data => {
-        document.querySelector('form').classList.remove('loading');
-        this.successMessage = 'Updated profile picture successfully';
-      }, err => {
-        console.log(err);
-        this.errorMessage = 'Error occured. Please try again';
-      });
-    }
-  }
-
-  ReadAsBase64(file): Promise<any> {
-    const reader = new FileReader();
-    const fileValue = new Promise((resolve,reject) => {
-      reader.addEventListener('load', () => {
-        resolve(reader.result);
-      });
-      reader.addEventListener('error', (event) => {
-        reject(event);
-      });
-      reader.readAsDataURL(file);
+  GetImages() {
+    this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
+      this.user = data.user;
+      this.images = this.user.images;
     });
-    return fileValue;
+  }
+
+  init() {
+    document.querySelector('.chooseBtn').addEventListener('click', function() {
+      (<any>document.querySelector('.successText')).style.display = 'none';
+      (<any>document.querySelector('.errorText')).style.display = 'none';
+      $('.ui.longer.modal').modal('show');
+      let images = <any>document.querySelectorAll('.image img');
+      for(let i=0; i<images.length; i++) {
+        images[i].addEventListener('click', function() {
+            let im = <any>document.querySelector('.displayImage');
+            im.src = images[i].src;
+            im.style.display = '';
+            (<any>document.querySelector('.updateBtn')).style.display = '';
+            $('.ui.longer.modal').modal('hide');  
+        });
+      }
+    });
+  }
+
+  UpdateProfilePic() {
+    let img = <any>document.querySelector('.displayImage');
+    let imgSrc = img.src;
+    let btn = <any>document.querySelector('.updateBtn');
+    btn.innerHTML = 'Updating...';
+    this.userService.updateProfilePic(imgSrc).subscribe(data => {
+      setTimeout(() => {
+        btn.innerHTML = 'Update';
+        btn.style.display = 'none';
+        img.style.display = 'none';
+        this.successMessage = 'Updated successfully';
+        (<any>document.querySelector('.successText')).style.display = '';
+      },1000)
+    }, err => {
+      this.errorMessage = 'Error occured! Please try again';
+      (<any>document.querySelector('.errorText')).style.display = '';
+    });
   }
 
 }
