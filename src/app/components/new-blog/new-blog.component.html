@@ -1,0 +1,97 @@
+<div class="ui segment wrapper">
+  <app-navbar></app-navbar>
+</div>
+
+<div class="ui centered grid">
+    <div class="four wide column sideComponent">
+        <app-side></app-side>
+    </div>
+    <div class="eight wide column" style="margin-top:60px;">
+      <h3>We need the following information to create a new blog for you</h3>
+      <form [formGroup]="newBlogForm" novalidate class="ui form" (ngSubmit)="CreateNewBlog()">
+        <p><b class="topic">Topic</b></p>
+        <div class="field">
+          <input type="text" formControlName="topic" placeholder="You should be sure of what you are writing about">
+        </div>
+        <p><b>Tags</b></p>
+        <div class="ui fluid selection search dropdown multiple">
+          <input type="hidden" class="dropdownInput">
+          <div class="default text">Tags help readers to find blogs of their interest</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+              <div class="item" data-value="Art">Art</div>
+              <div class="item" data-value="Books">Books</div>
+              <div class="item" data-value="Comics">Comics</div>
+              <div class="item" data-value="Culture">Culture</div>
+              <div class="item" data-value="Fiction">Fiction</div>
+              <div class="item" data-value="Film">Film</div>
+              <div class="item" data-value="Food">Food</div>
+              <div class="item" data-value="Gaming">Gaming</div>
+              <div class="item" data-value="Humor">Humor</div>
+              <div class="item" data-value="Music">Music</div>
+              <div class="item" data-value="Photography">Photography</div>
+              <div class="item" data-value="Podcasts">Podcasts</div>
+              <div class="item" data-value="Poetry">Poetry</div>
+              <div class="item" data-value="Social Media">Social Media</div>
+              <div class="item" data-value="Sports">Sports</div>
+              <div class="item" data-value="Style">Style</div>
+              <div class="item" data-value="Crime">Crime</div>
+              <div class="item" data-value="TV">TV</div>
+              <div class="item" data-value="Writing">Writing</div>
+              <div class="item" data-value="Business">Business</div>
+              <div class="item" data-value="Design">Design</div>
+              <div class="item" data-value="Economy">Economy</div>
+              <div class="item" data-value="Freelancing">Freelancing</div>
+              <div class="item" data-value="Leadership">Leadership</div>
+              <div class="item" data-value="Marketing">Marketing</div>
+              <div class="item" data-value="Product Management">Product Management</div>
+              <div class="item" data-value="Startups">Startups</div>
+              <div class="item" data-value="Work">Work</div>
+              <div class="item" data-value="Productivity">Productivity</div>
+              <div class="item" data-value="Accessibility">Accessibility</div>
+              <div class="item" data-value="Android Dev">Android Dev</div>
+              <div class="item" data-value="Artificial Intelligence">Artificial Intelligence</div>
+              <div class="item" data-value="Blockchain">Blockchain</div>
+              <div class="item" data-value="Cryptocurrency">Cryptocurrency</div>
+              <div class="item" data-value="Cybersecurity">Cybersecurity</div>
+              <div class="item" data-value="Data Science">Data Science</div>
+              <div class="item" data-value="Digital Life">Digital Life</div>
+              <div class="item" data-value="Gadgets">Gadgets</div>
+              <div class="item" data-value="ios Dev">ios Dev</div>
+              <div class="item" data-value="JavaScript">JavaScript</div>
+              <div class="item" data-value="Machine Learning">Machine Learning</div>
+              <div class="item" data-value="Math">Math</div>
+              <div class="item" data-value="Neuroscience">Neuroscience</div>
+              <div class="item" data-value="Programming">Programming</div>
+              <div class="item" data-value="Science">Science</div>
+              <div class="item" data-value="Self-Driving Cars">Self-Driving Cars</div>
+              <div class="item" data-value="Software Engineering">Software Engineering</div>
+              <div class="item" data-value="Space">Space</div>
+              <div class="item" data-value="Technology">Technology</div>
+              <div class="item" data-value="UX">UX</div>
+              <div class="item" data-value="Virtual Design">Virtual Design</div>
+          </div>
+        </div>
+        <p><b class="caption">Caption</b></p>
+        <div class="field">
+          <input type="text" formControlName="caption" placeholder="A good caption attracts alot of readers">
+        </div>
+        <p><u style="cursor:pointer;" class="chooseImg">Choose an image for the blog</u></p>
+        <img class="displayImage" src="" style="width: 100px; height: 100px; display: none; margin: 10px;">
+        <div class="ui longer modal">
+          <div class="header">Images</div>
+            <div class="scrolling content">
+              <div class="ui three cards">
+                <div *ngFor="let image of images" class="card">
+                  <div class="image">
+                    <img src="{{ image }}" style="width: 100%; height: 225px; cursor: pointer;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <p style="color: red;">{{ errorMessage }}</p>
+        <button class="ui button createBtn" type="submit">Create blog</button>
+      </form>  
+    </div>
+</div>
