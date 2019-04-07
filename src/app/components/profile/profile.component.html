@@ -1,0 +1,47 @@
+<div class="ui segment wrapper">
+  <app-navbar></app-navbar>
+</div>
+
+<div *ngIf="user" class="ui centered grid" style="margin-top: 30px;">
+  <div class="two wide column">
+    <img class="ui centered circular image" width="100" height="100" src="{{ user.profilePic }}">
+    <p style="text-align:center; margin-top: 5px; font-size: 15px;"><strong>{{ user.username }}</strong></p>
+  </div>
+  <div class="six wide column">
+    <h1>
+      <em style="word-spacing: 6px; margin-bottom: 0 !important;">
+        {{ user.firstName }} {{ user.lastName }}
+      </em>
+      <small *ngIf="userId !== currUserId && !IsFollowing(userId)" style="color:#2cb5e8; margin-left: 15px; font-size: 15px; cursor: pointer;">Follow</small>
+      <small *ngIf="userId !== currUserId && IsFollowing(userId)" style="color:#03a87c; font-size: 15px; cursor: pointer;">
+        <i class="check icon" style="margin-left: 15px;"></i><span>Following</span>
+      </small>
+    </h1>
+    <p>
+      <em style="color: #a6a6a6; font-size: 18px; word-spacing: 2px;">
+        {{ user.aboutMe }}
+      </em>
+    </p>
+  </div>
+</div>
+
+<div class="ui centered grid" style="margin-top: 50px;">
+  <div class="eight wide column">
+    <div class="ui secondary pointing menu profileMenu">
+      <a class="item active">Blogs</a>
+      <a class="item">Followers</a>
+      <a class="item">Following</a>
+    </div>
+    <div class="divs" style="margin-top: 40px;">
+      <div class="blogs">
+        <app-profile-blogs></app-profile-blogs>
+      </div>
+      <div class="followers" style="display:none;">
+        <app-profile-followers></app-profile-followers>
+      </div>
+      <div class="following" style="display:none">
+        <app-profile-following></app-profile-following>
+      </div>
+    </div>
+  </div>
+</div>
