@@ -12,7 +12,9 @@
       <em style="word-spacing: 6px; margin-bottom: 0 !important;">
         {{ user.firstName }} {{ user.lastName }}
       </em>
-      <small *ngIf="userId !== currUserId && !IsFollowing(userId)" style="color:#2cb5e8; margin-left: 15px; font-size: 15px; cursor: pointer;">Follow</small>
+      <small *ngIf="userId !== currUserId && !IsFollowing(userId)" (click)="Follow()" class="followLink" style="color:#2cb5e8; margin-left: 15px; font-size: 15px; cursor: pointer;">
+        Follow
+      </small>
       <small *ngIf="userId !== currUserId && IsFollowing(userId)" style="color:#03a87c; font-size: 15px; cursor: pointer;">
         <i class="check icon" style="margin-left: 15px;"></i><span>Following</span>
       </small>

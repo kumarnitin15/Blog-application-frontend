@@ -30,10 +30,7 @@ export class ProfileComponent implements OnInit {
     this.userId = this.route.snapshot.params.userId;
     (<any>document.querySelector('.profilePicDiv')).style.display = 'none';
     this.router.events.subscribe(val => {
-      setTimeout(()=>{
-        this.userId = this.route.snapshot.params.userId;
-        this.GetUser();
-      },200)
+      location.reload();
     });
     let tabs = document.querySelectorAll('.profileMenu .item');
     let divs = <any>document.querySelectorAll('.divs div');
@@ -85,6 +82,19 @@ export class ProfileComponent implements OnInit {
     followLink.style.color = '#ccebff';
     setTimeout(() => {
       this.userService.followUser(userId).subscribe(data => {
+        this.GetUser();
+      });
+    },1000);
+  }
+
+  Follow() {
+    let followLink = <any>document.querySelector('.followLink');
+    if(followLink.classList.contains('disabled'))
+      return;
+    followLink.classList.add('disabled');
+    followLink.style.color = '#ccebff';
+    setTimeout(() => {
+      this.userService.followUser(this.userId).subscribe(data => {
         this.GetUser();
       });
     },1000);

@@ -21,12 +21,6 @@ export class ProfileFollowersComponent implements OnInit {
   ngOnInit() {
     this.userId = this.route.snapshot.params.userId;
     this.currUserId = this.tokenService.GetPayload()._id;
-    this.router.events.subscribe(val => {
-      setTimeout(()=>{
-        this.userId = this.route.snapshot.params.userId;
-        this.GetFollowers();
-      },200)
-    });
     this.GetFollowers();
   }
 
