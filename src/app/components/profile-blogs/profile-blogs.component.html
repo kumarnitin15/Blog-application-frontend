@@ -1,0 +1,33 @@
+<div *ngIf="blogs.length === 0"><h1>No blogs to show</h1></div>
+<div *ngFor="let blog of blogs; let i = index;" class="ui raised link card" style="width:100%; margin-bottom: 50px;">
+    <div class="content ui grid" style="padding:0 !important;">
+        <div class="twelve wide column heightDiv">
+            <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
+                {{ blog.topic }}
+            </div>
+            <div style="font-size: 1em; color: rgba(0,0,0,.4);">
+                <span *ngFor="let tag of blog.tags"> {{ tag }}</span>
+            </div>
+            <div style="line-height: 1.4285em; margin: .5rem 0;">
+                {{ blog.caption }}
+            </div>
+            <em style="color: #d2d2d2">{{ TimeFromNow(blog.createdAt) }}</em>
+            <br>
+            <em style="margin-top: 0; color: #A9A9A9"><small>3 views</small></em>
+        </div>
+        <div class="four wide column">
+            <img class="cardImg" src="{{ blog.mainImage }}" style="width: 100%; height: 140px;">
+        </div>
+    </div>
+    <div class="extra content">
+        <span class="left floated like">
+            <i class="like red icon"></i>
+            <span style="color: red;">17 likes</span>
+            <i class="comment black icon" style="margin-left: 20px;"></i>
+            <span style="color:black;">3 comments</span>
+        </span>
+        <div class="right floated author">
+            <img class="ui avatar image" src="{{ user.profilePic }}"> {{ blog.userFirstName }}
+        </div>
+    </div>
+</div>
