@@ -1,0 +1,96 @@
+<div class="ui segment wrapper">
+  <app-navbar></app-navbar>
+</div>
+
+<div *ngIf="blog" class="ui grid">
+  <div class="row">
+    <div class="eight wide centered column">
+      <p id="blogTopic" contenteditable="true" style="margin-bottom: 0; font-size: 50px; word-spacing: 2px; font-family: 'Times New Roman',serif;">
+        {{ blog.topic }}
+      </p>
+      <p id="blogCaption" contenteditable="true" style="font-size: 25px; word-spacing: 2px; color: #bfbfbf;">{{ blog.caption }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="four wide column"></div>
+    <div class="eight wide column">
+      <div class="card" style="margin-bottom: 0 !important;">
+        <div class="content">
+          <img class="left floated ui circular image" width="50" height="50" src="{{ user.profilePic }}">
+          <div class="header" (click)="OpenProfile(blog.user)" style="cursor: pointer; color: green; font-size: medium; margin-bottom: 2px;">
+            {{ blog.userFirstName }} {{ blog.userLastName }}
+          </div>
+          <div class="meta" style="font-size: small; color: #999999">{{ CreatedAt(blog.createdAt) }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="eight wide centered column">
+      <img (click)="OpenModal()" class="ui centered image mainImage" style="width: 100%; height: 300px; cursor: pointer;" src="{{ blog.mainImage }}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="centered column" style="border: none;">
+      <div id="toolbar-container" style="text-align: center; border: none;">
+        <span class="ql-formats">
+          <select class="ql-font"></select>
+          <select class="ql-size"></select>
+          <select class="ql-color"></select>
+          <select class="ql-background"></select>
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+          <button class="ql-strike"></button>
+          <button class="ql-script" value="sub"></button>
+          <button class="ql-script" value="super"></button>
+          <button class="ql-header" value="1"></button>
+          <button class="ql-header" value="2"></button>
+          <button class="ql-blockquote"></button>
+          <button class="ql-code-block"></button>
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button> 
+          <button class="ql-indent" value="-1"></button>
+          <button class="ql-indent" value="+1"></button> 
+          <button class="ql-direction" value="rtl"></button>
+          <select class="ql-align"></select>
+          <button class="ql-link"></button>
+          <i style="cursor: pointer;" title="add image" id="addImageIcon" onmouseover="this.style.color='blue'" onmouseout="this.style.color='black'" class="file image icon"></i>
+          <i style="cursor: pointer; margin-right: 0;" (click)="SaveBlog()" title="save" class="save icon" id="saveIcon" onmouseover="this.style.color='blue'" onmouseout="this.style.color='black'"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="eight wide centered column" style="margin-bottom: 40px;">
+      <div id="editor-container" style="border: none !important; word-spacing: 2px;"></div>
+    </div>
+  </div>
+
+  <div class="ui longer modal modal1">
+    <div class="header">Images</div>
+      <div class="scrolling content">
+        <div class="ui three cards">
+          <div *ngFor="let image of images; let i = index" class="card">
+            <div class="image">
+              <img src="{{ image }}" id="{{ i }}" (click)="InsertImage(i)" style="width: 100%; height: 225px; cursor: pointer;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui longer modal modal2">
+      <div class="header">Images</div>
+        <div class="scrolling content">
+          <div class="ui three cards">
+            <div *ngFor="let image of images; let i = index" class="card">
+              <div class="image">
+                <img src="{{ image }}" id="{{ i }}" (click)="ChangeMainImage(i)" style="width: 100%; height: 225px; cursor: pointer;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
