@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
         <div *ngFor="let blog of myblogs;" class="ui raised link card" style="width:100%;">
-            <div class="content ui grid" style="padding:0 !important;">
+            <div class="content ui grid" style="padding:0 !important;" (click)="OpenBlog(blog._id)">
                 <div class="twelve wide column heightDiv">
                     <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
                         {{ blog.topic }}
@@ -31,7 +31,16 @@
                     </div>
                     <em style="color: #d2d2d2">{{ TimeFromNow(blog.createdAt) }}</em>
                     <br>
-                    <em style="margin-top: 0; color: #A9A9A9"><small>3 views</small></em>
+                    <em *ngIf="blog.views.length === 0" style="margin-top: 0; color: #A9A9A9">
+                        <small>No views</small>
+                    </em>
+                    <em *ngIf="blog.views.length > 0" style="margin-top: 0; color: #A9A9A9">
+                        <small>
+                            {{ blog.views.length }} 
+                            <span *ngIf="blog.views.length > 1">views</span>
+                            <span *ngIf="blog.views.length === 1">view</span>
+                        </small>
+                    </em>
                 </div>
                 <div class="four wide column">
                     <img class="cardImg" src="{{ blog.mainImage }}" style="width: 100%; height: 140px;">
@@ -39,16 +48,35 @@
             </div>
             <div class="extra content">
                 <span class="left floated like">
-                    <i class="like red icon"></i>
-                    <span style="color: red;">17 likes</span>
-                    <i class="comment black icon" style="margin-left: 20px;"></i>
-                    <span style="color:black;">3 comments</span>
+                    <i class="edit blue icon"></i>
+                    <span (click)="EditBlog(blog._id)" style="cursor:pointer;">Edit</span>
+                    <i class="trash red icon" style="margin-left: 20px;"></i>
+                    <span (click)="DeleteBlog(blog._id)" style="cursor:pointer;">Delete</span>
                 </span>
                 <div class="right floated author">
-                    <!-- <img class="ui avatar image" src="http://profilepicturesdp.com/wp-content/uploads/2018/06/default-dp-6.png"> {{ blog.userFirstName }} -->
                     <img class="ui avatar image" src="{{ profilePic }}"> {{ blog.userFirstName }}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="ui basic modal">
+    <div class="ui icon header">
+      <i class="archive icon"></i>
+      This is an irreversible action!
+    </div>
+    <div class="content">
+      <p style="text-align:center; word-spacing: 2px; font-size: 15px;">Your stories and ideas matter alot! Are you sure you want to delete this blog?</p>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel inverted button">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green ok inverted button deleteBlogConf">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>

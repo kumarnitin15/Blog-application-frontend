@@ -3,6 +3,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   profilePics = [];
   loading = true;
 
-  constructor(private tokenService: TokenService, private blogService: BlogService, private userService: UserService) { }
+  constructor(private tokenService: TokenService, private blogService: BlogService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     document.querySelector('body').style.background = "";
@@ -36,6 +37,10 @@ export class HomeComponent implements OnInit {
 
   TimeFromNow(date: Date) {
     return moment(date).fromNow();
+  }
+
+  OpenBlog(blogId) {
+    this.router.navigate(['blog',blogId]);
   }
 
 }

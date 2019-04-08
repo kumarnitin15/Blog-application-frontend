@@ -13,7 +13,7 @@
     </div>
     <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
         <div *ngFor="let blog of blogs; let i = index;" class="ui raised link card" style="width:100%;">
-            <div class="content ui grid" style="padding:0 !important;">
+            <div class="content ui grid" style="padding:0 !important;" (click)="OpenBlog(blog._id)">
                 <div class="twelve wide column heightDiv">
                     <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
                         {{ blog.topic }}
@@ -26,7 +26,16 @@
                     </div>
                     <em style="color: #d2d2d2">{{ TimeFromNow(blog.createdAt) }}</em>
                     <br>
-                    <em style="margin-top: 0; color: #A9A9A9"><small>3 views</small></em>
+                    <em *ngIf="blog.views.length === 0" style="margin-top: 0; color: #A9A9A9">
+                        <small>No views</small>
+                    </em>
+                    <em *ngIf="blog.views.length > 0" style="margin-top: 0; color: #A9A9A9">
+                        <small>
+                            {{ blog.views.length }} 
+                            <span *ngIf="blog.views.length > 1">views</span>
+                            <span *ngIf="blog.views.length === 1">view</span>
+                        </small>
+                    </em>
                 </div>
                 <div class="four wide column">
                     <img class="cardImg" src="{{ blog.mainImage }}" style="width: 100%; height: 140px;">

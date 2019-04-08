@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+declare var $ : any;
 
 @Component({
   selector: 'app-myblogs',
@@ -15,7 +17,7 @@ export class MyblogsComponent implements OnInit {
   profilePic: String;
   loading = true;
 
-  constructor(private tokenService: TokenService, private userService: UserService) {}
+  constructor(private tokenService: TokenService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     document.querySelector('body').style.background = "";
@@ -35,6 +37,21 @@ export class MyblogsComponent implements OnInit {
 
   TimeFromNow(date: Date) {
     return moment(date).fromNow();
+  }
+
+  OpenBlog(blogId) {
+    this.router.navigate(['blog',blogId]);
+  }
+
+  EditBlog(blogId) {
+    this.router.navigate(['edit-blog',blogId]);
+  }
+
+  DeleteBlog(blogId) {
+    $('.ui.basic.modal').modal('show');
+    $('.deleteBlogConf').unbind().click(function() {
+      console.log('Deleting blog...');
+    })
   }
 
 }

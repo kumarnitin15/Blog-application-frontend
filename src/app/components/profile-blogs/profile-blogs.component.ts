@@ -39,4 +39,8 @@ export class ProfileBlogsComponent implements OnInit {
     return moment(date).fromNow();
   }
 
+  OpenBlog(blogId) {
+    this.router.navigate(['blog',blogId]);
+  }
+
 }
