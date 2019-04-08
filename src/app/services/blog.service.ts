@@ -23,4 +23,22 @@ export class BlogService {
       mainImage
     });
   }
+
+  getBlogById(blogId): Observable<any> {
+    return this.http.get(`${BASEURL}/blog/${blogId}`);
+  }
+
+  saveBlog(blogId, topic, caption, mainImage, content): Observable<any> {
+    return this.http.post(`${BASEURL}/save-blog`, {
+      blogId,
+      topic,
+      mainImage,
+      caption,
+      content
+    });
+  }
+
+  addView(blogId): Observable<any> {
+    return this.http.post(`${BASEURL}/add-view`, {blogId});
+  }
 }
