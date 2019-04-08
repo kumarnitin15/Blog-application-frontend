@@ -1,0 +1,38 @@
+<div class="ui segment wrapper">
+  <app-navbar></app-navbar>
+</div>
+
+<div *ngIf="blog" class="ui grid">
+  <div class="row">
+    <div class="eight wide centered column">
+      <p style="margin-bottom: 0; font-size: 50px; word-spacing: 2px; font-family: 'Times New Roman',serif;">
+        {{ blog.topic }}
+      </p>
+      <p style="font-size: 25px; word-spacing: 2px; color: #bfbfbf;">{{ blog.caption }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="four wide column"></div>
+    <div class="eight wide column">
+      <div class="card" style="margin-bottom: 0 !important;">
+        <div class="content">
+          <img class="left floated ui circular image" width="50" height="50" src="http://profilepicturesdp.com/wp-content/uploads/2018/06/default-dp-6.png">
+          <div class="header" (click)="OpenProfile(blog.user)" style="cursor: pointer; color: green; font-size: medium; margin-bottom: 2px;">
+            {{ blog.userFirstName }} {{ blog.userLastName }}
+          </div>
+          <div class="meta" style="font-size: small; color: #999999">{{ CreatedAt(blog.createdAt) }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="eight wide centered column">
+      <img class="ui centered image" style="width: 100%; height: 300px;" src="{{ blog.mainImage }}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="eight wide centered column">
+      <div class="ql-editor" style="margin-bottom: 40px;"></div>
+    </div>
+  </div>
+</div>
