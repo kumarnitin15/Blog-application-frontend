@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-profile-following',
@@ -15,8 +16,11 @@ export class ProfileFollowingComponent implements OnInit {
   userId: any;
   currUserId: any;
   following = [];
+  socket: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private tokenService: TokenService, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private tokenService: TokenService, private userService: UserService) {
+    this.socket = io('http://localhost:3000');
+  }
 
   ngOnInit() {
     this.userId = this.route.snapshot.params.userId;
@@ -51,6 +55,10 @@ export class ProfileFollowingComponent implements OnInit {
     setTimeout(() => {
       this.userService.followUser(userId).subscribe(data => {
         this.GetFollowing();
+        const room_name1 = 'notifications-' + userId;
+        this.socket.emit('refresh', room_name1);
+        const room_name2 = 'side-' + userId;
+        this.socket.emit('refresh', room_name2);
       });
     },1000);
   }
@@ -64,6 +72,10 @@ export class ProfileFollowingComponent implements OnInit {
     setTimeout(() => {
       this.userService.unfollowUser(userId).subscribe(data => {
         this.GetFollowing();
+        const room_name1 = 'notifications-' + userId;
+        this.socket.emit('refresh', room_name1);
+        const room_name2 = 'side-' + userId;
+        this.socket.emit('refresh', room_name2);
       });
     },1000);
   }

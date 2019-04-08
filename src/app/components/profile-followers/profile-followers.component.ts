@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-profile-followers',
@@ -15,8 +16,11 @@ export class ProfileFollowersComponent implements OnInit {
   userId: any;
   currUserId: any;
   followers = [];
+  socket: any;
 
-  constructor(private route: ActivatedRoute, private tokenService: TokenService, private userService: UserService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private tokenService: TokenService, private userService: UserService, private router: Router) {
+    this.socket = io('http://localhost:3000');
+  }
 
   ngOnInit() {
     this.userId = this.route.snapshot.params.userId;
@@ -51,6 +55,10 @@ export class ProfileFollowersComponent implements OnInit {
     setTimeout(() => {
       this.userService.followUser(userId).subscribe(data => {
         this.GetFollowers();
+        const room_name1 = 'notifications-' + userId;
+        this.socket.emit('refresh', room_name1);
+        const room_name2 = 'side-' + userId;
+        this.socket.emit('refresh', room_name2);
       });
     },1000);
   }

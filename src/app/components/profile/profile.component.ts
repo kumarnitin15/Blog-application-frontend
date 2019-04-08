@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +18,11 @@ export class ProfileComponent implements OnInit {
   followers = [];
   following = [];
   currUser: any;
+  socket: any;
 
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private tokenService: TokenService) { }
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private tokenService: TokenService) {
+    this.socket = io('http://localhost:3000');
+  }
 
   ngOnInit() {
     this.init();
@@ -74,19 +78,6 @@ export class ProfileComponent implements OnInit {
     return false;
   }
 
-  FollowUser(userId, index) {
-    let followLink = <any>document.getElementsByClassName(String(index))[0];
-    if(followLink.classList.contains('disabled'))
-      return;
-    followLink.classList.add('disabled');
-    followLink.style.color = '#ccebff';
-    setTimeout(() => {
-      this.userService.followUser(userId).subscribe(data => {
-        this.GetUser();
-      });
-    },1000);
-  }
-
   Follow() {
     let followLink = <any>document.querySelector('.followLink');
     if(followLink.classList.contains('disabled'))
@@ -96,6 +87,11 @@ export class ProfileComponent implements OnInit {
     setTimeout(() => {
       this.userService.followUser(this.userId).subscribe(data => {
         this.GetUser();
+        let userId = this.userId;
+        const room_name1 = 'notifications-' + userId;
+        this.socket.emit('refresh', room_name1);
+        const room_name2 = 'side-' + userId;
+        this.socket.emit('refresh', room_name2);
       });
     },1000);
   }

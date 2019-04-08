@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { TokenService } from 'src/app/services/token.service';
+import io from 'socket.io-client';
 declare var $ : any;
 
 @Component({
@@ -14,8 +15,11 @@ export class ChangeProfilePicComponent implements OnInit {
   images = [];
   successMessage: String;
   errorMessage: String;
+  socket: any;
 
-  constructor(private userService: UserService, private tokenService: TokenService) { }
+  constructor(private userService: UserService, private tokenService: TokenService) {
+    this.socket = io('http://localhost:3000');
+  }
 
   ngOnInit() {
     this.GetImages();
@@ -59,6 +63,8 @@ export class ChangeProfilePicComponent implements OnInit {
         img.style.display = 'none';
         this.successMessage = 'Updated successfully';
         (<any>document.querySelector('.successText')).style.display = '';
+        const room_name = 'navbar-' + this.user._id;
+        this.socket.emit('refresh', room_name);
       },1000)
     }, err => {
       this.errorMessage = 'Error occured! Please try again';
