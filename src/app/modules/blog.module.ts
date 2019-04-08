@@ -7,9 +7,10 @@ import { NewBlogComponent } from '../components/new-blog/new-blog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BlogComponent } from '../components/blog/blog.component';
+import { EditBlogComponent } from '../components/edit-blog/edit-blog.component';
 
 @NgModule({
-  declarations: [HomeComponent, MyblogsComponent, NewBlogComponent, BlogComponent],
+  declarations: [HomeComponent, MyblogsComponent, NewBlogComponent, BlogComponent, EditBlogComponent],
   imports: [CommonModule, CommonComponentsModule, FormsModule, ReactiveFormsModule, FileUploadModule]
 })
 export class BlogModule { }

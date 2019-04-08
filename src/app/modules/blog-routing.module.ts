@@ -5,6 +5,7 @@ import { AuthGuard } from '../services/auth.guard';
 import { MyblogsComponent } from '../components/myblogs/myblogs.component';
 import { NewBlogComponent } from '../components/new-blog/new-blog.component';
 import { BlogComponent } from '../components/blog/blog.component';
+import { EditBlogComponent } from '../components/edit-blog/edit-blog.component';
 
 const routes : Routes = [
   {
@@ -25,6 +26,11 @@ const routes : Routes = [
   {
     path: 'blog/:blogId',
     component: BlogComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-blog/:blogId',
+    component: EditBlogComponent,
     canActivate: [AuthGuard]
   }
 ] 
