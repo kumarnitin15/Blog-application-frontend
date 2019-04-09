@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
 import { TokenService } from 'src/app/services/token.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+declare var $ : any;
 
 @Component({
   selector: 'app-blog',
@@ -16,14 +18,18 @@ export class BlogComponent implements OnInit {
   user: any;
   userId: any;
   authorId: any;
-  author: any;
   liked = false;
+  comments = [];
+  commentForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService) { }
+  constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.userId = this.tokenService.GetPayload()._id;
     this.blogId = this.route.snapshot.params.blogId;
+    this.commentForm = this.fb.group({
+      comment: ['', Validators.required]
+    });
     (<any>document.querySelector('.profilePicDiv')).style.display = 'none';
     this.init();
   }
@@ -32,6 +38,7 @@ export class BlogComponent implements OnInit {
     this.blogService.getBlogById(this.blogId).subscribe(data => {
       this.blog = data.blog;
       this.authorId = this.blog.user;
+      this.comments = this.blog.comments;
       setTimeout(()=>{
         document.querySelector('.ql-editor').innerHTML = this.blog.content;
       },500);
@@ -63,6 +70,14 @@ export class BlogComponent implements OnInit {
     return moment(date).format('MMM D');
   }
 
+  TimeFromNow(date: Date) {
+    return moment(date).fromNow();
+  }
+
+  ToggleCommentForm() {
+    $('.commentFormDiv').toggle("slow");
+  }
+
   AddLike() {
     let likeIcon = document.querySelector('.likeIcon');
     likeIcon.classList.add('disabled');
@@ -70,6 +85,17 @@ export class BlogComponent implements OnInit {
       setTimeout(() => {
         this.init();
       }, 1500); 
+    });
+  }
+
+  AddComment() {
+    (<any>document.querySelector('.commentForm')).classList.add('loading');
+    this.blogService.addComment(this.blog._id, this.commentForm.value.comment).subscribe(data => {
+      this.commentForm.reset();
+      setTimeout(()=>{
+        this.init();
+        (<any>document.querySelector('.commentForm')).classList.remove('loading');
+      },1000);
     });
   }
 

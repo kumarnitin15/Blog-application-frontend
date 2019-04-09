@@ -32,9 +32,19 @@
     <div class="extra content">
         <span class="left floated like">
             <i class="like red icon"></i>
-            <span style="color: red;">17 likes</span>
+            <span *ngIf="blog.likes.length === 0" style="color: red;">No likes yet</span>
+            <span *ngIf="blog.likes.length > 0" style="color: red;">
+                {{ blog.likes.length }} 
+                <span *ngIf="blog.likes.length > 1">likes</span>
+                <span *ngIf="blog.likes.length === 1">like</span>
+            </span>
             <i class="comment black icon" style="margin-left: 20px;"></i>
-            <span style="color:black;">3 comments</span>
+            <span *ngIf="blog.comments.length === 0" style="color: black;">No comments</span>
+            <span *ngIf="blog.comments.length > 0" style="color: black;">
+                {{ blog.comments.length }} 
+                <span *ngIf="blog.comments.length > 1">comments</span>
+                <span *ngIf="blog.comments.length === 1">comment</span>
+            </span>
         </span>
         <div class="right floated author">
             <img class="ui avatar image" src="{{ user.profilePic }}"> {{ blog.userFirstName }}

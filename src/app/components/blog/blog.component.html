@@ -46,8 +46,41 @@
         <i *ngIf="userId === authorId" class="share alternate icon"></i>
         <span style="cursor:pointer;">Share</span>
         <i class="comment black icon" style="margin-left: 30px;"></i>
-        <span style="cursor:pointer;" class="commentBtn">Comment</span>
+        <span style="cursor:pointer;" class="commentBtn" (click)="ToggleCommentForm()">Comment</span>
         <i class="bookmark outline icon" title="bookmark this blog" style="cursor: pointer; float: right;"></i>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="eight wide centered column">
+      <div style="display: none;" class="commentFormDiv">
+        <form class="ui form commentForm" [formGroup]="commentForm" novalidate (ngSubmit)="AddComment()">
+          <div class="field">
+            <input type="text" formControlName="comment" style="border-radius: 20px; height: 5vh;" placeholder="Add a comment...">
+          </div>
+          <button class="ui blue button" type="submit" [disabled]="!commentForm.valid" style="border-radius: 20px;">Add</button>
+        </form>
+    </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="comments.length > 0" style="margin-bottom: 120px;">
+    <div class="eight wide centered column">
+      <div style="margin-top: 120px;">
+        <div class="ui large comments">
+            <h3 class="ui dividing header">Comments</h3>
+            <div class="comment commentsDiv" *ngFor="let comment of comments" style="margin-top: 30px;">
+              <a class="avatar"><img style="border-radius: 50%; width: 40px; height: 40px;" src="{{ comment.user.profilePic }}"></a>
+              <div class="content">
+                <a class="author" (click)="OpenProfile(comment.user.id)">{{ comment.user.firstName }} {{ comment.user.lastName }}</a>
+                <div class="metadata">
+                  <span class="date">{{ TimeFromNow(comment.createdAt) }}</span>
+                </div>
+                <div class="text">
+                  {{ comment.comment }}
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

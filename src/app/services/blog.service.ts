@@ -53,4 +53,11 @@ export class BlogService {
   addLike(blogId): Observable<any> {
     return this.http.post(`${BASEURL}/add-like`, {blogId});
   }
+
+  addComment(blogId, comment): Observable<any> {
+    return this.http.post(`${BASEURL}/add-comment`, {
+      blogId,
+      comment
+    });
+  }
 }
