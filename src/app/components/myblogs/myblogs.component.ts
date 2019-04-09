@@ -50,9 +50,11 @@ export class MyblogsComponent implements OnInit {
 
   DeleteBlog(blogId) {
     $('.ui.basic.modal').modal('show');
-    $('.deleteBlogConf').unbind().click(function() {
-      console.log('Deleting blog...');
-    })
+    $('.deleteBlogConf').unbind().click((e) => {
+      this.blogService.deleteBlog(blogId).subscribe(data => {
+        this.GetUserBlogs();
+      });
+    });
   }
 
   PostBlog(blogId, index) {

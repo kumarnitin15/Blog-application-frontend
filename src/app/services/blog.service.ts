@@ -45,4 +45,8 @@ export class BlogService {
   postBlog(blogId): Observable<any> {
     return this.http.post(`${BASEURL}/post-blog`, {blogId});
   }
+
+  deleteBlog(blogId): Observable<any> {
+    return this.http.post(`${BASEURL}/delete-blog`, {blogId});
+  }
 }
