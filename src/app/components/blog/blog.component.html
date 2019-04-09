@@ -32,7 +32,23 @@
   </div>
   <div class="row">
     <div class="eight wide centered column">
-      <div class="ql-editor" style="margin-bottom: 40px;"></div>
+      <div class="ql-editor" style="margin-bottom: 50px;"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="eight wide centered column">
+      <div style="margin-bottom: 20px; font-size: 18px;">
+        <i *ngIf="userId !== authorId && !liked" class="heart outline red icon likeIcon"></i>
+        <span *ngIf="userId !== authorId && !liked" (click)="AddLike()" style="cursor:pointer;">Like</span>
+        <i *ngIf="userId !== authorId && liked" class="heart red icon"></i>
+        <span *ngIf="userId !== authorId && liked">Liked</span>
+        <i *ngIf="userId !== authorId" class="share alternate icon" style="margin-left: 30px;"></i>
+        <i *ngIf="userId === authorId" class="share alternate icon"></i>
+        <span style="cursor:pointer;">Share</span>
+        <i class="comment black icon" style="margin-left: 30px;"></i>
+        <span style="cursor:pointer;" class="commentBtn">Comment</span>
+        <i class="bookmark outline icon" title="bookmark this blog" style="cursor: pointer; float: right;"></i>
+      </div>
     </div>
   </div>
 </div>

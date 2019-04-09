@@ -15,6 +15,9 @@ export class BlogComponent implements OnInit {
   blog: any;
   user: any;
   userId: any;
+  authorId: any;
+  author: any;
+  liked = false;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService) { }
 
@@ -28,6 +31,7 @@ export class BlogComponent implements OnInit {
   init() {
     this.blogService.getBlogById(this.blogId).subscribe(data => {
       this.blog = data.blog;
+      this.authorId = this.blog.user;
       setTimeout(()=>{
         document.querySelector('.ql-editor').innerHTML = this.blog.content;
       },500);
@@ -41,6 +45,13 @@ export class BlogComponent implements OnInit {
       if(!flag && this.userId !== this.blog.user) {
         this.blogService.addView(this.blog._id).subscribe(data => {});
       }
+
+      for(let i=0; i<this.blog.likes.length; i++) {
+        if(this.blog.likes[i] === this.userId) {
+          this.liked = true;
+          break;
+        }
+      }
     });
   }
 
@@ -50,6 +61,16 @@ export class BlogComponent implements OnInit {
 
   CreatedAt(date: Date) {
     return moment(date).format('MMM D');
+  }
+
+  AddLike() {
+    let likeIcon = document.querySelector('.likeIcon');
+    likeIcon.classList.add('disabled');
+    this.blogService.addLike(this.blog._id).subscribe(data => {
+      setTimeout(() => {
+        this.init();
+      }, 1500); 
+    });
   }
 
 }
