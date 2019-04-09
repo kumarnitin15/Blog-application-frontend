@@ -42,9 +42,12 @@
         <span *ngIf="userId !== authorId && !liked" (click)="AddLike()" style="cursor:pointer;">Like</span>
         <i *ngIf="userId !== authorId && liked" class="heart red icon"></i>
         <span *ngIf="userId !== authorId && liked">Liked</span>
-        <i *ngIf="userId !== authorId" class="share alternate icon" style="margin-left: 30px;"></i>
-        <i *ngIf="userId === authorId" class="share alternate icon"></i>
-        <span style="cursor:pointer;">Share</span>
+        <i *ngIf="userId !== authorId && !shared" class="share alternate icon" style="margin-left: 30px;"></i>
+        <i *ngIf="userId === authorId && !shared" class="share alternate icon shareIcon"></i>
+        <span *ngIf="!shared" style="cursor:pointer;" (click)="ShareBlog()">Share</span>
+        <i *ngIf="userId !== authorId && shared" class="check icon" style="margin-left: 30px; color: #03a87c;"></i>
+        <i *ngIf="userId === authorId && shared" class="check icon" style="color: #03a87c;"></i>
+        <span *ngIf="shared" style="cursor:pointer;">Shared</span>
         <i class="comment black icon" style="margin-left: 30px;"></i>
         <span style="cursor:pointer;" class="commentBtn" (click)="ToggleCommentForm()">Comment</span>
         <i class="bookmark outline icon" title="bookmark this blog" style="cursor: pointer; float: right;"></i>

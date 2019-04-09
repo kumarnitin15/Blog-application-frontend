@@ -19,6 +19,7 @@ export class BlogComponent implements OnInit {
   userId: any;
   authorId: any;
   liked = false;
+  shared = false;
   comments = [];
   commentForm: FormGroup;
 
@@ -59,6 +60,13 @@ export class BlogComponent implements OnInit {
           break;
         }
       }
+
+      for(let i=0; i<this.blog.shares.length; i++) {
+        if(this.blog.shares[i] === this.userId) {
+          this.shared = true;
+          break;
+        }
+      }
     });
   }
 
@@ -96,6 +104,16 @@ export class BlogComponent implements OnInit {
         this.init();
         (<any>document.querySelector('.commentForm')).classList.remove('loading');
       },1000);
+    });
+  }
+
+  ShareBlog() {
+    let shareIcon = document.querySelector('.shareIcon');
+    shareIcon.classList.add('disabled');
+    this.blogService.shareBlog(this.blog._id).subscribe(data => {
+      setTimeout(()=>{
+        this.init();
+      }, 1000);
     });
   }
 

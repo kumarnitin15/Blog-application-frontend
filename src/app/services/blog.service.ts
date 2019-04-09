@@ -60,4 +60,8 @@ export class BlogService {
       comment
     });
   }
+
+  shareBlog(blogId): Observable<any> {
+    return this.http.post(`${BASEURL}/share-blog`, {blogId});
+  }
 }
