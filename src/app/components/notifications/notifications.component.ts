@@ -90,4 +90,8 @@ export class NotificationsComponent implements OnInit {
     this.router.navigate(['profile',userId]);
   }
 
+  OpenBlog(blogId) {
+    this.router.navigate(['blog', blogId]);
+  }
+
 }

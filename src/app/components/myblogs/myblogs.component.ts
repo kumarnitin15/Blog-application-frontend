@@ -3,6 +3,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { BlogService } from 'src/app/services/blog.service';
 declare var $ : any;
 
 @Component({
@@ -17,7 +18,7 @@ export class MyblogsComponent implements OnInit {
   profilePic: String;
   loading = true;
 
-  constructor(private tokenService: TokenService, private userService: UserService, private router: Router) {}
+  constructor(private tokenService: TokenService, private userService: UserService, private router: Router, private blogService: BlogService) {}
 
   ngOnInit() {
     document.querySelector('body').style.background = "";
@@ -52,6 +53,23 @@ export class MyblogsComponent implements OnInit {
     $('.deleteBlogConf').unbind().click(function() {
       console.log('Deleting blog...');
     })
+  }
+
+  PostBlog(blogId, index) {
+    let postIndex = -1;
+    for(let i=0; i<=index; i++) {
+      if(!this.myblogs[i].online)
+        postIndex += 1;
+    }
+    let postIcon = <any>document.querySelectorAll('.postIcon')[postIndex];
+    if(postIcon.classList.contains('disabled'))
+      return;
+    postIcon.classList.add('disabled');
+    this.blogService.postBlog(blogId).subscribe(data => {
+      setTimeout(() => {
+        this.GetUserBlogs();
+      }, 1000);
+    });
   }
 
 }

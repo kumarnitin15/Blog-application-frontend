@@ -16,6 +16,7 @@ export class ProfileBlogsComponent implements OnInit {
   userId: any;
   currUserId: any;
   blogs = [];
+  onlineBlogs = false;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private tokenService: TokenService, private router: Router) { }
 
@@ -31,6 +32,12 @@ export class ProfileBlogsComponent implements OnInit {
         this.user = data1.user;
         this.currUser = data2.user;
         this.blogs = this.user.blogs;
+        for(let i=0; i<this.blogs.length; i++) {
+          if(this.blogs[i].online) {
+            this.onlineBlogs = true;
+            break;
+          }
+        }
       });
     });
   }

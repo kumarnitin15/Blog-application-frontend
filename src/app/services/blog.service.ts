@@ -41,4 +41,8 @@ export class BlogService {
   addView(blogId): Observable<any> {
     return this.http.post(`${BASEURL}/add-view`, {blogId});
   }
+
+  postBlog(blogId): Observable<any> {
+    return this.http.post(`${BASEURL}/post-blog`, {blogId});
+  }
 }

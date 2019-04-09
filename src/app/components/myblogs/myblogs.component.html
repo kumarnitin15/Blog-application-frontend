@@ -15,7 +15,7 @@
         <h1><em style="color:#2cb5e8">You don't have any active blogs right now. Start a new blog today!</em></h1>
     </div>
     <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
-        <div *ngFor="let blog of myblogs;" class="ui raised link card" style="width:100%;">
+        <div *ngFor="let blog of myblogs; let i = index;" class="ui raised link card" style="width:100%;">
             <div class="content ui grid" style="padding:0 !important;" (click)="OpenBlog(blog._id)">
                 <div class="twelve wide column heightDiv">
                     <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
@@ -52,6 +52,10 @@
                     <span (click)="EditBlog(blog._id)" style="cursor:pointer;">Edit</span>
                     <i class="trash red icon" style="margin-left: 20px;"></i>
                     <span (click)="DeleteBlog(blog._id)" style="cursor:pointer;">Delete</span>
+                    <i *ngIf="!blog.online" class="wifi yellow icon postIcon" style="margin-left: 20px;"></i>
+                    <span *ngIf="!blog.online" class="postBtn" (click)="PostBlog(blog._id, i)" style="cursor:pointer;">Post Blog</span>
+                    <i *ngIf="blog.online" class="check green icon" style="margin-left: 20px;"></i>
+                    <span *ngIf="blog.online">Posted</span>                    
                 </span>
                 <div class="right floated author">
                     <img class="ui avatar image" src="{{ profilePic }}"> {{ blog.userFirstName }}

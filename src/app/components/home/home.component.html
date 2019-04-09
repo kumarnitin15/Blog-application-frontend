@@ -12,7 +12,8 @@
         <h1><em style="color:#2cb5e8">Loading...</em></h1>
     </div>
     <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
-        <div *ngFor="let blog of blogs; let i = index;" class="ui raised link card" style="width:100%;">
+        <div *ngFor="let blog of blogs; let i = index;">
+            <div *ngIf="blog.online" class="ui raised link card" style="width:100%;">
             <div class="content ui grid" style="padding:0 !important;" (click)="OpenBlog(blog._id)">
                 <div class="twelve wide column heightDiv">
                     <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
@@ -52,6 +53,7 @@
                     <img class="ui avatar image" src="{{ profilePics[i] }}"> {{ blog.userFirstName }}
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

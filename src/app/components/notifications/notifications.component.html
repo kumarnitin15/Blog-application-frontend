@@ -36,7 +36,7 @@
           <div class="extra content" style="margin-top: 10px;">
             <a (click)="OpenProfile(notification.sender)">{{ notification.senderName.firstName }} {{ notification.senderName.lastName }}</a>
             {{ notification.content }}
-            <a *ngIf="notification.blog">{{ notification.blogTopic }}</a>
+            <a *ngIf="notification.blog" (click)="OpenBlog(notification.blog)">{{ notification.blogTopic }}</a>
           </div>
           <div class="meta" style="margin-top: 10px;">
             <i *ngIf="!notification.read" class="check icon" title="mark as read" (click)="MarkAsRead(i)"></i>
