@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
 import { UserService } from 'src/app/services/user.service';
+import io from 'socket.io-client';
 declare var Quill : any;
 declare var $ : any;
 
@@ -18,8 +19,11 @@ export class EditBlogComponent implements OnInit {
   user: any;
   quill: any;
   images = [];
+  socket: any;
 
-  constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private userService: UserService) {
+    this.socket = io('http://localhost:3000');
+  }
 
   ngOnInit() {
     (<any>document.querySelector('.profilePicDiv')).style.display = 'none';
@@ -77,6 +81,12 @@ export class EditBlogComponent implements OnInit {
       setTimeout(() => {
         document.querySelector('#saveIcon').classList.remove('disabled');
       }, 1000);
+      for(let i=0; i<this.user.followers.length; i++) {
+        let room_name1 = 'notifications-' + String(this.user.followers[i]._id);
+        this.socket.emit('refresh', room_name1);
+        let room_name2 = 'side-' + String(this.user.followers[i]._id);
+        this.socket.emit('refresh', room_name2);
+      }
     }, err => {
       console.log(err);
     });
