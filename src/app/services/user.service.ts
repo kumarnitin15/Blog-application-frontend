@@ -63,4 +63,12 @@ export class UserService {
     return this.http.post(`${BASEURL}/update-profile-pic`, {imgSrc});
   }
 
+  addBookmark(blogId): Observable<any> {
+    return this.http.post(`${BASEURL}/add-bookmark`, {blogId});
+  }
+
+  removeBookmark(index): Observable<any> {
+    return this.http.post(`${BASEURL}/remove-bookmark`, {index});
+  }
+
 }

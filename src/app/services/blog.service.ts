@@ -64,4 +64,8 @@ export class BlogService {
   shareBlog(blogId): Observable<any> {
     return this.http.post(`${BASEURL}/share-blog`, {blogId});
   }
+
+  bookmarkedBlogs(): Observable<any> {
+    return this.http.get(`${BASEURL}/bookmarked-blogs`);
+  }
 }

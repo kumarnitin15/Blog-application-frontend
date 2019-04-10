@@ -4,6 +4,7 @@ import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
 import { TokenService } from 'src/app/services/token.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 declare var $ : any;
 
 @Component({
@@ -20,10 +21,11 @@ export class BlogComponent implements OnInit {
   authorId: any;
   liked = false;
   shared = false;
+  bookmarked = false;
   comments = [];
   commentForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService, private fb: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService, private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
     this.userId = this.tokenService.GetPayload()._id;
@@ -37,36 +39,47 @@ export class BlogComponent implements OnInit {
 
   init() {
     this.blogService.getBlogById(this.blogId).subscribe(data => {
-      this.blog = data.blog;
-      this.authorId = this.blog.user;
-      this.comments = this.blog.comments;
-      setTimeout(()=>{
-        document.querySelector('.ql-editor').innerHTML = this.blog.content;
-      },500);
-      let flag = false;
-      for(let i=0; i < this.blog.views.length; i++) {
-        if(this.blog.views[i] == this.userId) {
-          flag = true;
-          break;
-        }
-      }
-      if(!flag && this.userId !== this.blog.user) {
-        this.blogService.addView(this.blog._id).subscribe(data => {});
-      }
+      this.userService.getUser(this.userId).subscribe(data2 => {
+        this.user = data2.user;
 
-      for(let i=0; i<this.blog.likes.length; i++) {
-        if(this.blog.likes[i] === this.userId) {
-          this.liked = true;
-          break;
+        this.blog = data.blog;
+        this.authorId = this.blog.user;
+        this.comments = this.blog.comments;
+        setTimeout(()=>{
+          document.querySelector('.ql-editor').innerHTML = this.blog.content;
+        },500);
+        let flag = false;
+        for(let i=0; i < this.blog.views.length; i++) {
+          if(this.blog.views[i] == this.userId) {
+            flag = true;
+            break;
+          }
         }
-      }
+        if(!flag && this.userId !== this.blog.user) {
+          this.blogService.addView(this.blog._id).subscribe(data => {});
+       }
 
-      for(let i=0; i<this.blog.shares.length; i++) {
-        if(this.blog.shares[i] === this.userId) {
-          this.shared = true;
-          break;
+        for(let i=0; i<this.blog.likes.length; i++) {
+          if(this.blog.likes[i] === this.userId) {
+            this.liked = true;
+            break;
+          }
         }
-      }
+
+        for(let i=0; i<this.blog.shares.length; i++) {
+          if(this.blog.shares[i] === this.userId) {
+            this.shared = true;
+            break;
+          }
+        }
+
+        for(let i=0; i<this.user.bookmarks.length; i++) {
+          if(this.user.bookmarks[i] === this.blog._id) {
+            this.bookmarked = true;
+            break;
+          }
+        }
+      });
     });
   }
 
@@ -111,6 +124,16 @@ export class BlogComponent implements OnInit {
     let shareIcon = document.querySelector('.shareIcon');
     shareIcon.classList.add('disabled');
     this.blogService.shareBlog(this.blog._id).subscribe(data => {
+      setTimeout(()=>{
+        this.init();
+      }, 1000);
+    });
+  }
+
+  BookmarkBlog() {
+    let bookmarkIcon = document.querySelector('.bookmarkIcon');
+    bookmarkIcon.classList.add('disabled');
+    this.userService.addBookmark(this.blog._id).subscribe(data => {
       setTimeout(()=>{
         this.init();
       }, 1000);

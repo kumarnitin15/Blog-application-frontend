@@ -9,6 +9,7 @@ import { ProfileComponent } from '../components/profile/profile.component';
 import { ChangeProfilePicComponent } from '../components/change-profile-pic/change-profile-pic.component';
 import { ChangePasswordComponent } from '../components/change-password/change-password.component';
 import { PhotosComponent } from '../components/photos/photos.component';
+import { BookmarkedBlogsComponent } from '../components/bookmarked-blogs/bookmarked-blogs.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,11 @@ const routes: Routes = [
   }, {
     path: 'photos',
     component: PhotosComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'bookmarks',
+    component: BookmarkedBlogsComponent,
     canActivate: [AuthGuard]
   }
 ]

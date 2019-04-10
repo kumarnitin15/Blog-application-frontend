@@ -50,7 +50,8 @@
         <span *ngIf="shared" style="cursor:pointer;">Shared</span>
         <i class="comment black icon" style="margin-left: 30px;"></i>
         <span style="cursor:pointer;" class="commentBtn" (click)="ToggleCommentForm()">Comment</span>
-        <i class="bookmark outline icon" title="bookmark this blog" style="cursor: pointer; float: right;"></i>
+        <i *ngIf="!bookmarked" class="bookmark outline icon bookmarkIcon" (click)="BookmarkBlog()" title="bookmark this blog" style="cursor: pointer; float: right;"></i>
+        <i *ngIf="bookmarked" class="bookmark green icon" title="bookmarked" style="float: right;"></i>
       </div>
     </div>
   </div>
