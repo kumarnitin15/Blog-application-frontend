@@ -19,7 +19,8 @@ export class ProfileFollowingComponent implements OnInit {
   socket: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private tokenService: TokenService, private userService: UserService) {
-    this.socket = io('http://localhost:3000');
+    // this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {

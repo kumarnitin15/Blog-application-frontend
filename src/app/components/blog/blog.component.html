@@ -2,7 +2,10 @@
   <app-navbar></app-navbar>
 </div>
 
-<div *ngIf="blog" class="ui grid">
+<div *ngIf="error" class="ui grid">
+  <h1 style="text-align: center;">Page Not Found! Either this page doesnt't exist or the author has deleted this post...</h1>
+</div>
+<div *ngIf="blog && !error" class="ui grid">
   <div class="row">
     <div class="eight wide centered column">
       <p style="margin-bottom: 0; font-size: 50px; word-spacing: 2px; font-family: 'Times New Roman',serif;">
@@ -35,7 +38,7 @@
       <div class="ql-editor" style="margin-bottom: 50px;"></div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="blog.online">
     <div class="eight wide centered column">
       <div style="margin-bottom: 20px; font-size: 18px;">
         <i *ngIf="userId !== authorId && !liked" class="heart outline red icon likeIcon"></i>

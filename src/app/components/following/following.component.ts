@@ -17,7 +17,8 @@ export class FollowingComponent implements OnInit {
   socket: any;
 
   constructor(private userService: UserService, private tokenService: TokenService, private router: Router) {
-    this.socket = io('http://localhost:3000');
+    //this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {

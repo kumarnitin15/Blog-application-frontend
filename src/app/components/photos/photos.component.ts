@@ -27,13 +27,17 @@ export class PhotosComponent implements OnInit {
   constructor(private userService: UserService, private tokenService: TokenService) { }
 
   ngOnInit() {
+    this.init();
+  }
+
+  init() {
     this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
       this.user = data.user;
       this.images = this.user.images;
       setTimeout(()=>{
         this.loading = false;
       },500);
-    })
+    });
   }
 
   OnFileSelected(event) {

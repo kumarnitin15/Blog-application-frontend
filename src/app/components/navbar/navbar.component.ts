@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
   socket: any;
 
   ngOnInit() {
-    this.socket = io('http://localhost:3000');
+    //this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
     this.init();
     this.socket.on('refreshPage', () => {
       this.init();
@@ -62,6 +63,7 @@ export class NavbarComponent implements OnInit {
   LogoutUser() {
     this.tokenService.DeleteToken();
     this.router.navigate(['login']);
+    location.reload();
   }
 
   OpenProfile(userId) {

@@ -24,6 +24,7 @@ export class BlogComponent implements OnInit {
   bookmarked = false;
   comments = [];
   commentForm: FormGroup;
+  error = false;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService, private fb: FormBuilder, private userService: UserService) { }
 
@@ -80,6 +81,8 @@ export class BlogComponent implements OnInit {
           }
         }
       });
+    }, err => {
+      this.error = true;
     });
   }
 

@@ -15,7 +15,8 @@ export class SideComponent implements OnInit {
   unreadNotifs = 0;
 
   constructor(private tokenService: TokenService, private userService: UserService) {
-    this.socket = io('http://localhost:3000');
+    // this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {

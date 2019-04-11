@@ -18,7 +18,8 @@ export class ChangeProfilePicComponent implements OnInit {
   socket: any;
 
   constructor(private userService: UserService, private tokenService: TokenService) {
-    this.socket = io('http://localhost:3000');
+    //this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {

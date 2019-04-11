@@ -21,7 +21,8 @@ export class ProfileComponent implements OnInit {
   socket: any;
 
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private tokenService: TokenService) {
-    this.socket = io('http://localhost:3000');
+    // this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {

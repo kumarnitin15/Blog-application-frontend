@@ -40,7 +40,7 @@ export class BookmarkedBlogsComponent implements OnInit {
   }
 
   RemoveBookmark(index) {
-    let icon = document.querySelector('.bookmarkIcon');
+    let icon = document.querySelectorAll('.bookmarkIcon')[index];
     icon.classList.add('disabled');
     this.userService.removeBookmark(index).subscribe(data => {
       setTimeout(()=>{

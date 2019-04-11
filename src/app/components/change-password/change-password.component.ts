@@ -24,6 +24,8 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ChangePassword() {
+    this.successMessage = '';
+    this.errorMessage = '';
     document.querySelector('form').classList.add('loading');
     this.authService.changePassword(this.changePasswordForm.value).subscribe(data => {
       setTimeout(() => {

@@ -22,7 +22,8 @@ export class EditBlogComponent implements OnInit {
   socket: any;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private userService: UserService) {
-    this.socket = io('http://localhost:3000');
+    //this.socket = io('http://localhost:3000');
+    this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {
