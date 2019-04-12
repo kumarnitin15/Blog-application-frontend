@@ -1,53 +1,65 @@
-<div *ngIf="!onlineBlogs"><h1>No blogs to show</h1></div>
-<div *ngFor="let blog of blogs; let i = index;">
-    <div *ngIf="blog.online" class="ui raised link card" style="width:100%; margin-bottom: 50px;">
-    <div class="content ui grid" style="padding:0 !important;" (click)="OpenBlog(blog._id)">
-        <div class="twelve wide column heightDiv">
-            <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
-                {{ blog.topic }}
-            </div>
-            <div style="font-size: 1em; color: rgba(0,0,0,.4);">
-                <span *ngFor="let tag of blog.tags"> {{ tag }}</span>
-            </div>
-            <div style="line-height: 1.4285em; margin: .5rem 0;">
-                {{ blog.caption }}
-            </div>
-            <em style="color: #d2d2d2">{{ TimeFromNow(blog.createdAt) }}</em>
-            <br>
-            <em *ngIf="blog.views.length === 0" style="margin-top: 0; color: #A9A9A9">
-                <small>No views</small>
-            </em>
-            <em *ngIf="blog.views.length > 0" style="margin-top: 0; color: #A9A9A9">
-                <small>
-                    {{ blog.views.length }} 
-                    <span *ngIf="blog.views.length > 1">views</span>
-                    <span *ngIf="blog.views.length === 1">view</span>
-                </small>
-            </em>
-        </div>
-        <div class="four wide column">
-            <img class="cardImg" src="{{ blog.mainImage }}" style="width: 100%; height: 140px;">
-        </div>
+<div *ngIf="!onlineBlogs" class="ui centered grid" style="margin-top: 80px;">
+    <div class="one wide column"></div>
+    <div class="seven wide column">
+        <h1 *ngIf="profileUser._id === currUser._id">You don't have any active blogs right now</h1>
+        <h1 *ngIf="profileUser._id !== currUser._id">{{ profileUser.firstName }} doesn't have any active blogs right now</h1>
     </div>
-    <div class="extra content">
-        <span class="left floated like">
-            <i class="like red icon"></i>
-            <span *ngIf="blog.likes.length === 0" style="color: red;">No likes yet</span>
-            <span *ngIf="blog.likes.length > 0" style="color: red;">
-                {{ blog.likes.length }} 
-                <span *ngIf="blog.likes.length > 1">likes</span>
-                <span *ngIf="blog.likes.length === 1">like</span>
-            </span>
-            <i class="comment black icon" style="margin-left: 20px;"></i>
-            <span *ngIf="blog.comments.length === 0" style="color: black;">No comments</span>
-            <span *ngIf="blog.comments.length > 0" style="color: black;">
-                {{ blog.comments.length }} 
-                <span *ngIf="blog.comments.length > 1">comments</span>
-                <span *ngIf="blog.comments.length === 1">comment</span>
-            </span>
-        </span>
-        <div class="right floated author">
-            <img class="ui avatar image" src="{{ user.profilePic }}"> {{ blog.userFirstName }}
+</div>
+
+<div class="ui centered grid" style="margin-top: 80px;">
+    <div class="one wide column"></div>
+    <div class="seven wide column">
+    <div *ngFor="let blog of blogs; let i = index;">
+        <div *ngIf="blog.online" class="ui raised link card" style="width:100%; margin-bottom: 50px;">
+            <div class="content ui grid" style="padding:0 !important;" (click)="OpenBlog(blog._id)">
+                <div class="twelve wide column heightDiv">
+                    <div class="header" style="font-weight: 700; font-size: 1.28571429em; line-height: 1.28571429em; color:#2cb5e8;">
+                        {{ blog.topic }}
+                    </div>
+                    <div style="font-size: 1em; color: rgba(0,0,0,.4);">
+                        <span *ngFor="let tag of blog.tags"> {{ tag }}</span>
+                    </div>
+                    <div style="line-height: 1.4285em; margin: .5rem 0;">
+                        {{ blog.caption }}
+                    </div>
+                    <em style="color: #d2d2d2">{{ TimeFromNow(blog.createdAt) }}</em>
+                    <br>
+                    <em *ngIf="blog.views.length === 0" style="margin-top: 0; color: #A9A9A9">
+                        <small>No views</small>
+                    </em>
+                    <em *ngIf="blog.views.length > 0" style="margin-top: 0; color: #A9A9A9">
+                        <small>
+                            {{ blog.views.length }} 
+                            <span *ngIf="blog.views.length > 1">views</span>
+                            <span *ngIf="blog.views.length === 1">view</span>
+                        </small>
+                    </em>
+                </div>
+                <div class="four wide column">
+                    <img class="cardImg" src="{{ blog.mainImage }}" style="width: 100%; height: 140px;">
+                </div>
+            </div>
+            <div class="extra content">
+                <span class="left floated like">
+                    <i class="like red icon"></i>
+                    <span *ngIf="blog.likes.length === 0" style="color: red;">No likes yet</span>
+                    <span *ngIf="blog.likes.length > 0" style="color: red;">
+                        {{ blog.likes.length }} 
+                        <span *ngIf="blog.likes.length > 1">likes</span>
+                        <span *ngIf="blog.likes.length === 1">like</span>
+                    </span>
+                    <i class="comment black icon" style="margin-left: 20px;"></i>
+                    <span *ngIf="blog.comments.length === 0" style="color: black;">No comments</span>
+                    <span *ngIf="blog.comments.length > 0" style="color: black;">
+                        {{ blog.comments.length }} 
+                        <span *ngIf="blog.comments.length > 1">comments</span>
+                        <span *ngIf="blog.comments.length === 1">comment</span>
+                    </span>
+                </span>
+                <div class="right floated author">
+                    <img class="ui avatar image" src="{{ profilePic }}"> {{ blog.userFirstName }}
+                </div>
+            </div>
         </div>
     </div>
     </div>

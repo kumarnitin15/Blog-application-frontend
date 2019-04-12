@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
@@ -11,32 +11,34 @@ import io from 'socket.io-client';
 })
 export class ProfileFollowingComponent implements OnInit {
 
-  user: any;
-  currUser: any;
-  userId: any;
-  currUserId: any;
-  following = [];
   socket: any;
+  currUser: any;
+  following = [];
+  profileUserId: String;
+  profileUser: any;
+
+  @Input() data: any;
+
+  @Output() initEvent = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private router: Router, private tokenService: TokenService, private userService: UserService) {
-    // this.socket = io('http://localhost:3000');
     this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
   ngOnInit() {
-    this.userId = this.route.snapshot.params.userId;
-    this.currUserId = this.tokenService.GetPayload()._id;
-    this.GetFollowing();
+    this.init();
   }
 
-  GetFollowing() {
-    this.userService.getUser(this.userId).subscribe(data1 => {
-      this.userService.getUser(this.currUserId).subscribe(data2 => {
-        this.user = data1.user;
-        this.currUser = data2.user;
-        this.following = this.user.following;
-      });
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    this.data = changes.data.currentValue;
+    this.init();
+  }
+
+  init() {
+    this.following = this.data.following;
+    this.currUser = this.data.currUser;
+    this.profileUser = this.data.profileUser;
+    this.profileUserId = this.route.snapshot.params.userId;
   }
 
   IsFollowing(userId) {
@@ -55,11 +57,11 @@ export class ProfileFollowingComponent implements OnInit {
     followLink.style.color = '#ccebff';
     setTimeout(() => {
       this.userService.followUser(userId).subscribe(data => {
-        this.GetFollowing();
         const room_name1 = 'notifications-' + userId;
         this.socket.emit('refresh', room_name1);
         const room_name2 = 'side-' + userId;
         this.socket.emit('refresh', room_name2);
+        this.initEvent.emit();
       });
     },1000);
   }
@@ -69,14 +71,14 @@ export class ProfileFollowingComponent implements OnInit {
     if(followLink.classList.contains('disabled'))
       return;
     followLink.classList.add('disabled');
-    followLink.style.color = '#ff9980';
+    followLink.style.color = '#ffcccc';
     setTimeout(() => {
       this.userService.unfollowUser(userId).subscribe(data => {
-        this.GetFollowing();
         const room_name1 = 'notifications-' + userId;
         this.socket.emit('refresh', room_name1);
         const room_name2 = 'side-' + userId;
         this.socket.emit('refresh', room_name2);
+        this.initEvent.emit();
       });
     },1000);
   }

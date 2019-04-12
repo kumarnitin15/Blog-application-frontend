@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -11,35 +11,37 @@ import * as moment from 'moment';
 })
 export class ProfileBlogsComponent implements OnInit {
 
-  user: any;
-  currUser: any;
-  userId: any;
-  currUserId: any;
   blogs = [];
+  currUser: any;
+  profilePic: String;
   onlineBlogs = false;
+  profileUser: any;
+
+  @Input() data: any;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private tokenService: TokenService, private router: Router) { }
 
   ngOnInit() {
-    this.userId = this.route.snapshot.params.userId;
-    this.currUserId = this.tokenService.GetPayload()._id;
-    this.GetUser();
+    this.init();
   }
 
-  GetUser() {
-    this.userService.getUser(this.userId).subscribe(data1 => {
-      this.userService.getUser(this.currUserId).subscribe(data2 => {
-        this.user = data1.user;
-        this.currUser = data2.user;
-        this.blogs = this.user.blogs;
-        for(let i=0; i<this.blogs.length; i++) {
-          if(this.blogs[i].online) {
-            this.onlineBlogs = true;
-            break;
-          }
-        }
-      });
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    this.data = changes.data.currentValue;
+    this.init();
+  }
+
+  init() {
+    this.currUser = this.tokenService.GetPayload();
+    this.profilePic = this.data.profilePic;
+    this.blogs = this.data.blogs;
+    this.profileUser = this.data.user;
+    this.onlineBlogs = false;
+    for(let i=0; i<this.blogs.length; i++) {
+      if(this.blogs[i].online) {
+        this.onlineBlogs = true;
+        break;
+      }
+    }
   }
 
   TimeFromNow(date: Date) {
@@ -47,7 +49,7 @@ export class ProfileBlogsComponent implements OnInit {
   }
 
   OpenBlog(blogId) {
-    this.router.navigate(['blog',blogId]);
+    this.router.navigate(['blog', blogId]);
   }
 
-}
+ }

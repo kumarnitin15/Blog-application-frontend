@@ -1,19 +1,23 @@
-<div *ngIf="followers.length === 0"><h1>No followers</h1></div>
-<div *ngFor="let follower of followers; let i = index" style="margin-top:60px;">
-  <div *ngIf="follower._id !== currUserId" class="ui grid" style="margin-bottom: 40px !important;">
-    <div class="two wide column" style="margin-right: 15px !important; padding:0 !important;">
-      <img class="ui circular image" width="75" height="75" src="{{ follower.profilePic }}">
+<div *ngIf="followers.length === 0" class="ui centered grid" style="margin-top: 80px;">
+  <div class="one wide column"></div>
+  <div class="seven wide column">
+      <h1 *ngIf="profileUser._id === currUser._id">You don't have any followers right now</h1>
+      <h1 *ngIf="profileUser._id !== currUser._id">{{ profileUser.firstName }} doesn't have any followers right now</h1>
+  </div>
+</div>
+
+<div class="ui centered grid" style="margin-top: 80px;">
+  <div class="row" *ngFor="let user of followers; let i = index">
+    <div *ngIf="user._id !== currUser._id" class="two wide column" style="margin-right: 15px !important; padding:0 !important;">
+      <img class="ui right floated circular image" width="75" height="75" src="{{ user.profilePic }}">
     </div>
-    <div class="thirteen wide column" style="padding: 0 !important; margin-left:0 !important;">
-      <p style="margin-bottom:5px; font-size: 17px; word-spacing: 1px; cursor: pointer;" (click)="OpenProfile(follower._id)" onmouseover="this.style.color='#2cb5e8'" onmouseout="this.style.color='black'">
-        {{ follower.firstName }} {{ follower.lastName }}
+    <div *ngIf="user._id !== currUser._id" class="six wide column" style="padding: 0 !important; margin-left:0 !important;">
+      <p style="margin-bottom:5px; font-size: 17px; word-spacing: 1px; cursor: pointer;" (click)="OpenProfile(user._id)" onmouseover="this.style.color='#2cb5e8'" onmouseout="this.style.color='black'">
+        {{ user.firstName }} {{ user.lastName }}
       </p>
-      <p style="margin-bottom:5px; color: #A9A9A9; word-spacing: 2px;">{{ follower.aboutMe }}</p>
-      <a *ngIf="IsFollowing(follower._id)" style="color: #03a87c; cursor: text;">
-        <i class="check icon" style="margin-right: 5px;"></i>
-        <span>Following</span>
-      </a>
-      <a *ngIf="!IsFollowing(follower._id)" class="{{i}}" (click)="FollowUser(follower._id, i)" style="color:#2cb5e8; cursor: pointer;">Follow</a>
+      <p style="margin-bottom:5px; color: #A9A9A9; word-spacing: 2px;">{{ user.aboutMe }}</p>
+      <a *ngIf="IsFollowing(user._id)" style="color: #03a87c; cursor: text;"><i class="check icon" style="margin-right: 5px;"></i><span>Following</span></a>
+      <a *ngIf="!IsFollowing(user._id)" class="{{i}}" (click)="FollowUser(user._id, i)" style="color:#2cb5e8; cursor: pointer;">Follow</a>
     </div>
   </div>
 </div>
