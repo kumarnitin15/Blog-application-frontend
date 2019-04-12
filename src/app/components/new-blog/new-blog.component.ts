@@ -6,8 +6,6 @@ import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
 declare var $ : any;
 
-const URL = 'http://localhost:3000/api/blogapp/upload-new-blog-image';
-
 @Component({
   selector: 'app-new-blog',
   templateUrl: './new-blog.component.html',
@@ -39,15 +37,16 @@ export class NewBlogComponent implements OnInit {
       showOnFocus: true,
       maxSelections: 3
     });
-    document.querySelector('.chooseImg').addEventListener('click', function() {
-      $('.ui.longer.modal').modal('show');
+    document.querySelector('.chooseImg').addEventListener('click', () => {
+      const query = '.ui.longer.modal.' + this.user.username;
+      $(query).modal('show');
       let images = <any>document.querySelectorAll('.image img');
       for(let i=0; i<images.length; i++) {
         images[i].addEventListener('click', function() {
             let im = <any>document.querySelector('.displayImage');
             im.src = images[i].src;
             im.style.display = '';
-            $('.ui.longer.modal').modal('hide');  
+            $(query).modal('hide');  
         });
       }
     });

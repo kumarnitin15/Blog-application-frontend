@@ -49,8 +49,9 @@ export class EditBlogComponent implements OnInit {
             theme: 'snow'
           });
           document.querySelector('.ql-editor').innerHTML = this.blog.content;
-          document.querySelector('#addImageIcon').addEventListener('click', function() {
-            $('.ui.longer.modal.modal1').modal('show');
+          document.querySelector('#addImageIcon').addEventListener('click', () => {
+            const query1 = '.ui.longer.modal1.' + this.user.username;
+            $(query1).modal('show');
           });
         },500);
 
@@ -63,7 +64,8 @@ export class EditBlogComponent implements OnInit {
     let id = String(index);
     let url = (<any>document.getElementById(id)).src;
     this.quill.insertEmbed(this.quill.getSelection(focus=true).index, 'image', url);
-    $('.ui.longer.modal.modal1').modal('hide');
+    const query1 = '.ui.longer.modal1.' + this.user.username;
+    $(query1).modal('hide');
   }
 
   SaveBlog() {
@@ -94,14 +96,16 @@ export class EditBlogComponent implements OnInit {
   }
 
   OpenModal() {
-    $('.ui.longer.modal.modal2').modal('show');
+    const query2 = '.ui.longer.modal2.' + this.user.username;
+    $(query2).modal('show');
   }
 
   ChangeMainImage(index) {
     let id = String(index);
     let url = (<any>document.getElementById(id)).src;
     (<any>document.querySelector('.mainImage')).src = url;
-    $('.ui.longer.modal.modal2').modal('hide');
+    const query2 = '.ui.longer.modal2.' + this.user.username;
+    $(query2).modal('hide');
   }
 
   CreatedAt(date: Date) {

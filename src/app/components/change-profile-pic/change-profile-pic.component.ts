@@ -18,7 +18,6 @@ export class ChangeProfilePicComponent implements OnInit {
   socket: any;
 
   constructor(private userService: UserService, private tokenService: TokenService) {
-    //this.socket = io('http://localhost:3000');
     this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
@@ -35,10 +34,11 @@ export class ChangeProfilePicComponent implements OnInit {
   }
 
   init() {
-    document.querySelector('.chooseBtn').addEventListener('click', function() {
+    document.querySelector('.chooseBtn').addEventListener('click', () => {
+      const query = '.ui.longer.modal.' + this.user.username;
       (<any>document.querySelector('.successText')).style.display = 'none';
       (<any>document.querySelector('.errorText')).style.display = 'none';
-      $('.ui.longer.modal').modal('show');
+      $(query).modal('show');
       let images = <any>document.querySelectorAll('.image img');
       for(let i=0; i<images.length; i++) {
         images[i].addEventListener('click', function() {
@@ -46,7 +46,7 @@ export class ChangeProfilePicComponent implements OnInit {
             im.src = images[i].src;
             im.style.display = '';
             (<any>document.querySelector('.updateBtn')).style.display = '';
-            $('.ui.longer.modal').modal('hide');  
+            $(query).modal('hide');  
         });
       }
     });
