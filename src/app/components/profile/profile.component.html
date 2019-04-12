@@ -2,48 +2,47 @@
   <app-navbar></app-navbar>
 </div>
 
-<div *ngIf="user" class="ui centered grid" style="margin-top: 30px;">
-  <div class="two wide column">
-    <img class="ui centered circular image" width="100" height="100" src="{{ user.profilePic }}">
-    <p style="text-align:center; margin-top: 5px; font-size: 15px;"><strong>{{ user.username }}</strong></p>
-  </div>
-  <div class="six wide column">
-    <h1>
-      <em style="word-spacing: 6px; margin-bottom: 0 !important;">
-        {{ user.firstName }} {{ user.lastName }}
-      </em>
-      <small *ngIf="userId !== currUserId && !IsFollowing(userId)" (click)="Follow()" class="followLink" style="color:#2cb5e8; margin-left: 15px; font-size: 15px; cursor: pointer;">
-        Follow
-      </small>
-      <small *ngIf="userId !== currUserId && IsFollowing(userId)" style="color:#03a87c; font-size: 15px; cursor: pointer;">
-        <i class="check icon" style="margin-left: 15px;"></i><span>Following</span>
-      </small>
-    </h1>
-    <p>
-      <em style="color: #a6a6a6; font-size: 18px; word-spacing: 2px;">
-        {{ user.aboutMe }}
-      </em>
-    </p>
+<div *ngIf="loading" class="ui grid">
+  <div class="eight wide centered column" style="margin-top: 60px;">
+      <div class="ui massive active centered inline loader"></div>
   </div>
 </div>
 
-<div class="ui centered grid" style="margin-top: 50px;">
-  <div class="eight wide column">
-    <div class="ui secondary pointing menu profileMenu">
-      <a class="item active">Blogs</a>
-      <a class="item">Followers</a>
-      <a class="item">Following</a>
-    </div>
-    <div class="divs" style="margin-top: 40px;">
-      <div class="blogs">
-        <app-profile-blogs></app-profile-blogs>
-      </div>
-      <div class="followers" style="display:none;">
-        <app-profile-followers></app-profile-followers>
-      </div>
-      <div class="following" style="display:none">
-        <app-profile-following></app-profile-following>
-      </div>
-    </div>
+<div *ngIf="!loading" class="ui centered grid" style="margin-top: 30px;">
+  <div class="two wide column">
+      <img class="ui centered circular image" width="100" height="100" src="{{ user.profilePic }}">
+      <p style="text-align:center; margin-top: 5px; font-size: 15px;"><strong>{{ user.username }}</strong></p>
+  </div>
+  <div class="six wide column">
+      <p style="margin-bottom: 10px;">
+          <span style="word-spacing: 8px; letter-spacing: 1px; font-size: 25px;">
+              <strong>{{ user.firstName }} {{ user.lastName }}</strong>
+          </span>
+          <small class="followLink" *ngIf="userId !== currUserId && !IsFollowing(user._id)" (click)="FollowUser(user._id)" style="color:#2cb5e8; font-size: 12px; cursor: pointer; margin-left: 15px;">
+            Follow
+          </small>
+          <small *ngIf="userId !== currUserId && IsFollowing(user._id)" style="color:#03a87c; font-size: 12px; cursor: pointer; margin-left: 15px;">
+            <i class="check icon"></i><span>Following</span>
+          </small>
+      </p>
+      <p style="margin-bottom: 5px; margin-top: none;">
+          <span style="color: #a6a6a6; font-size: 15px; word-spacing: 2px;">
+              {{ user.aboutMe }}
+          </span>
+      </p>
+      <small style="color: #a6a6a6; word-spacing: 2px; font-size: 10px; display: block; margin-bottom: 5px;">Joined in Mar 2019</small>
+      <small (click)="SetDisplay(0, 1, 2)" class="clickMenuItem activeClick" style="color: #a6a6a6; cursor: pointer;">
+          <i class="newspaper icon"></i><span>Blogs</span>
+      </small>
+      <small (click)="SetDisplay(1, 0, 2)" class="clickMenuItem" style="color: #a6a6a6; cursor: pointer; margin-left: 20px;">
+          <i class="users icon"></i><span>Followers</span>
+      </small>
+      <small (click)="SetDisplay(2, 0, 1)" class="clickMenuItem" style="color: #a6a6a6; cursor: pointer; margin-left: 20px;">
+          <i class="user icon"></i><span>Following</span>
+      </small>
   </div>
 </div>
+
+<app-profile-blogs *ngIf="!loading" [data]="profileBlogsData" class="profileMenuItem"></app-profile-blogs>
+<app-profile-followers *ngIf="!loading" (initEvent)="init()" [data]="profileFollowersData" class="profileMenuItem" style="display:none;"></app-profile-followers>
+<app-profile-following *ngIf="!loading" (initEvent)="init()" [data]="profileFollowingData" class="profileMenuItem" style="display:none;"></app-profile-following>
