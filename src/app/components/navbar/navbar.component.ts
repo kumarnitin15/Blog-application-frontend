@@ -63,7 +63,6 @@ export class NavbarComponent implements OnInit {
   LogoutUser() {
     this.tokenService.DeleteToken();
     this.router.navigate(['login']);
-    location.reload();
   }
 
   OpenProfile(userId) {
