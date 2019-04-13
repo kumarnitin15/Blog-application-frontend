@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
       this.loginForm.reset();
       setTimeout(() => {
         this.router.navigate(['home']);
+        setTimeout(()=> {
+        }, 1000);
       }, 1500);
     }, err => {
       (<HTMLElement>document.querySelector('#loginForm')).classList.remove('loading');
