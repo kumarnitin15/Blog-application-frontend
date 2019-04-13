@@ -48,7 +48,7 @@ export class FollowingComponent implements OnInit {
     if(followLink.classList.contains('disabled'))
       return;
     followLink.classList.add('disabled');
-    followLink.style.color = '#ff9980';
+    followLink.style.color = '#ffcccc';
     setTimeout(() => {
       this.userService.unfollowUser(userId).subscribe(data => {
         this.GetAllFollowing();

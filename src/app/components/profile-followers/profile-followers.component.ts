@@ -48,7 +48,9 @@ export class ProfileFollowersComponent implements OnInit {
   }
 
   FollowUser(userId, index) {
-    let followLink = <any>document.getElementsByClassName(String(index))[0];
+    const query = 'follow' + String(index);
+    let followLink = <any>document.getElementsByClassName(query)[0];
+    // let followLink = <any>document.getElementsByClassName(String(index))[0];
     if(followLink.classList.contains('disabled'))
       return;
     followLink.classList.add('disabled');

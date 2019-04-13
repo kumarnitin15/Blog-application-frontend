@@ -50,9 +50,9 @@ export class ProfileFollowingComponent implements OnInit {
   }
 
   FollowUser(userId, index) {
-    let followLink = <any>document.getElementsByClassName(String(index))[0];
-    if(followLink.classList.contains('disabled'))
-      return;
+    const query = 'followingFollow' + String(index);
+    let followLink = <any>document.getElementsByClassName(query)[0];
+    // let followLink = <any>document.getElementsByClassName(String(index))[0];
     followLink.classList.add('disabled');
     followLink.style.color = '#ccebff';
     setTimeout(() => {
@@ -67,7 +67,9 @@ export class ProfileFollowingComponent implements OnInit {
   }
 
   UnfollowUser(userId, index) {
-    let followLink = <any>document.getElementsByClassName(String(index))[0];
+    const query = 'followingUnfollow' + String(index);
+    let followLink = <any>document.getElementsByClassName(query)[0];
+    // let followLink = <any>document.getElementsByClassName(String(index))[0];
     if(followLink.classList.contains('disabled'))
       return;
     followLink.classList.add('disabled');
