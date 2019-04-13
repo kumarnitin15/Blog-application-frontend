@@ -25,6 +25,7 @@ export class BlogComponent implements OnInit {
   comments = [];
   commentForm: FormGroup;
   error = false;
+  loading = true;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private tokenService: TokenService, private fb: FormBuilder, private userService: UserService) { }
 
@@ -46,6 +47,7 @@ export class BlogComponent implements OnInit {
         this.blog = data.blog;
         this.authorId = this.blog.user;
         this.comments = this.blog.comments;
+        this.loading = false;
         setTimeout(()=>{
           document.querySelector('.ql-editor').innerHTML = this.blog.content;
         },500);
@@ -83,6 +85,7 @@ export class BlogComponent implements OnInit {
       });
     }, err => {
       this.error = true;
+      this.loading = false;
     });
   }
 
@@ -106,9 +109,7 @@ export class BlogComponent implements OnInit {
     let likeIcon = document.querySelector('.likeIcon');
     likeIcon.classList.add('disabled');
     this.blogService.addLike(this.blog._id).subscribe(data => {
-      setTimeout(() => {
-        this.init();
-      }, 1500); 
+      this.init(); 
     });
   }
 
@@ -116,10 +117,12 @@ export class BlogComponent implements OnInit {
     (<any>document.querySelector('.commentForm')).classList.add('loading');
     this.blogService.addComment(this.blog._id, this.commentForm.value.comment).subscribe(data => {
       this.commentForm.reset();
-      setTimeout(()=>{
-        this.init();
-        (<any>document.querySelector('.commentForm')).classList.remove('loading');
-      },1000);
+      // setTimeout(()=>{
+      //   this.init();
+      //   (<any>document.querySelector('.commentForm')).classList.remove('loading');
+      // },1000);
+      this.init();
+      (<any>document.querySelector('.commentForm')).classList.remove('loading');
     });
   }
 
