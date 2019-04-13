@@ -53,6 +53,7 @@ export class MyblogsComponent implements OnInit {
     $(query).modal('show');
     $('.deleteBlogConf').unbind().click((e) => {
       this.blogService.deleteBlog(blogId).subscribe(data => {
+        $(query).modal('hide');
         this.GetUserBlogs();
       });
     });
