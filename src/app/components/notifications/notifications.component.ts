@@ -39,6 +39,11 @@ export class NotificationsComponent implements OnInit {
       this.notifications = this.user.notifications;
       this.profilePics = data.profilePics;
       this.unreadNotifs = 0;
+
+      let markAllBtn = document.querySelector('.markAllBtn');
+      if(markAllBtn && markAllBtn.classList.contains('loading'))
+        markAllBtn.classList.remove('loading');
+
       for(let i = 0; i < this.notifications.length; i++) {
         if(!this.notifications[i].read)
           this.unreadNotifs++;
@@ -56,6 +61,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   MarkAllAsRead() {
+    let markAllBtn = document.querySelector('.markAllBtn');
+    markAllBtn.classList.add('loading');
     this.userService.markAllNotifs().subscribe(data => {
       this.GetNotifications();
       const room_name = 'side-' + this.user._id;
@@ -64,6 +71,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   MarkAsRead(index) {
+    let checkIcon = document.querySelectorAll('.checkIcon')[index];
+    checkIcon.classList.add('disabled');
     this.userService.markNotif(index).subscribe(data => {
       this.GetNotifications();
       const room_name = 'side-' + this.user._id;
@@ -72,6 +81,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   DeleteNotif(index) {
+    let trashIcon = document.querySelectorAll('.trashIcon')[index];
+    trashIcon.classList.add('disabled');
     this.userService.deleteNotif(index).subscribe(data => {
       this.GetNotifications();
       const room_name = 'side-' + this.user._id;
@@ -80,6 +91,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   DeleteAllNotifs() {
+    let deleteAllBtn = document.querySelector('.deleteAllBtn');
+    deleteAllBtn.classList.add('loading');
     this.userService.deleteAllNotifs().subscribe(data => {
       this.GetNotifications();
       const room_name = 'side-' + this.user._id;

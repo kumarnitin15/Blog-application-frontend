@@ -15,8 +15,8 @@
       <h1><em style="color:#2cb5e8">There are no new notifications at the moment</em></h1>
   </div>
   <div *ngIf="!loading" class="eight wide column" style="margin-top: 60px;">
-    <button *ngIf="notifications.length > 0" class="ui secondary button" style="float:right;" (click)="DeleteAllNotifs()">Delete All</button>
-    <button *ngIf="notifications.length > 0" class="ui red button" [disabled]="unreadNotifs === 0" style="float:right; margin-right: 10px;" (click)="MarkAllAsRead()">Mark All As Read</button>
+    <button *ngIf="notifications.length > 0" class="ui secondary button deleteAllBtn" style="float:right;" (click)="DeleteAllNotifs()">Delete All</button>
+    <button *ngIf="notifications.length > 0" class="ui red button markAllBtn" [disabled]="unreadNotifs === 0" style="float:right; margin-right: 10px;" (click)="MarkAllAsRead()">Mark All As Read</button>
     <div class="ui large feed" style="margin-top: 70px;">
       <div *ngFor="let notification of notifications; let i = index;" class="event" style="margin-bottom: 40px; font-size: 18px; word-spacing: 2px;">
         <div class="label" style="margin-top: 10px;">
@@ -39,9 +39,9 @@
             <a *ngIf="notification.blog" (click)="OpenBlog(notification.blog)">{{ notification.blogTopic }}</a>
           </div>
           <div class="meta" style="margin-top: 10px;">
-            <i *ngIf="!notification.read" class="check icon" title="mark as read" (click)="MarkAsRead(i)"></i>
-            <i *ngIf="notification.read" class="check icon" style="color: #cccccc;"></i>
-            <i class="trash icon" (click)="DeleteNotif(i)" title="delete"></i>
+            <i *ngIf="!notification.read" class="check icon checkIcon" title="mark as read" (click)="MarkAsRead(i)"></i>
+            <i *ngIf="notification.read" class="check icon" style="color: #03a87c;"></i>
+            <i class="trash icon trashIcon" (click)="DeleteNotif(i)" title="delete"></i>
           </div>
         </div>
       </div>
