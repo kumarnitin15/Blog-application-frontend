@@ -2,7 +2,12 @@
   <app-navbar></app-navbar>
 </div>
 
-<div *ngIf="blog" class="ui grid">
+<div *ngIf="!error && loading" class="ui grid">
+  <div class="eight wide centered column" style="margin-top: 60px;">
+      <div class="ui massive active centered inline loader"></div>
+  </div>
+</div>
+<div *ngIf="!loading" class="ui grid">
   <div class="row">
     <div class="eight wide centered column">
       <p id="blogTopic" contenteditable="true" style="margin-bottom: 0; font-size: 50px; word-spacing: 2px; font-family: 'Times New Roman',serif;">

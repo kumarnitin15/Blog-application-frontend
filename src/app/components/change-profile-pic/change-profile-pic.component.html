@@ -3,30 +3,33 @@
 </div>
 
 <div class="ui centered grid">
-    <!-- Side component -->
-    <div class="four wide column sideComponent">
-        <app-side></app-side>
+  <!-- Side component -->
+  <div class="four wide column sideComponent">
+    <app-side></app-side>
+  </div>
+  <!-- Main component -->
+  <div *ngIf="loading" class="eight wide column" style="margin-top:60px;">
+    <h1><em style="color:#2cb5e8">Loading...</em></h1>
+  </div>
+  <div *ngIf="!loading" class="eight wide column" style="margin-top:60px;">
+    <button class="ui button chooseBtn" style="width: 100%; padding: 20px; background-color: #2cb5e8; color: white;">Choose Image</button>
+    <img class="ui centered image displayImage" style="display:none; margin-top: 20px;" width="300" height="250">
+    <div style="text-align:center;">
+      <button class="ui button updateBtn" (click)="UpdateProfilePic()" style="display:none; margin-top: 20px; width:300px;">Update</button>
     </div>
-    <!-- Main component -->
-    <div class="eight wide column" style="margin-top:60px;">
-      <button class="ui button chooseBtn" style="width: 100%; padding: 20px; background-color: #2cb5e8; color: white;">Choose Image</button>
-      <img class="ui centered image displayImage" style="display:none; margin-top: 20px;" width="300" height="250">
-      <div style="text-align:center;">
-        <button class="ui button updateBtn" (click)="UpdateProfilePic()" style="display:none; margin-top: 20px; width:300px;">Update</button>
-      </div>
-      <p class="successText" style="text-align:center; color: #2cb5e8; margin-top: 20px; font-size: 15px;"><em>{{ successMessage }}</em></p>
-      <p class="errorText" style="text-align:center; color: red; font-size: 15px;"><em>{{ errorMessage }}</em></p>
-      <div class="ui longer modal {{ user.username }}">
-        <div class="header">Images</div>
-          <div class="scrolling content">
-            <div class="ui three cards">
-              <div *ngFor="let image of images" class="card">
-                <div class="image">
-                  <img src="{{ image }}" style="width: 100%; height: 225px; cursor: pointer;">
-                </div>
-              </div>
+    <p class="successText" style="text-align:center; color: #2cb5e8; margin-top: 20px; font-size: 15px;"><em>{{ successMessage }}</em></p>
+    <p class="errorText" style="text-align:center; color: red; font-size: 15px;"><em>{{ errorMessage }}</em></p>
+    <div *ngIf="!loading" class="ui longer modal {{ user.username }}">
+      <div class="header">Images</div>
+      <div class="scrolling content">
+        <div class="ui three cards">
+          <div *ngFor="let image of images" class="card">
+            <div class="image">
+              <img src="{{ image }}" style="width: 100%; height: 225px; cursor: pointer;">
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

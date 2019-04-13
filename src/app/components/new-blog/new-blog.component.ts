@@ -16,6 +16,7 @@ export class NewBlogComponent implements OnInit {
   newBlogForm: FormGroup;
   user: any;
   errorMessage: String;
+  loading = true;
   images = [];
 
   constructor(private fb: FormBuilder, private blogService: BlogService, private userService: UserService, private tokenService: TokenService, private router: Router) { }
@@ -25,10 +26,11 @@ export class NewBlogComponent implements OnInit {
       topic: ['', Validators.required],
       caption: ['', Validators.required]
     });
-    this.init();
     this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
       this.user = data.user;
       this.images = this.user.images;
+      this.loading = false;
+      this.init();
     });
   }
 

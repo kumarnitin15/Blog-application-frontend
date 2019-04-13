@@ -15,6 +15,7 @@ export class ChangeProfilePicComponent implements OnInit {
   images = [];
   successMessage: String;
   errorMessage: String;
+  loading = true;
   socket: any;
 
   constructor(private userService: UserService, private tokenService: TokenService) {
@@ -23,13 +24,16 @@ export class ChangeProfilePicComponent implements OnInit {
 
   ngOnInit() {
     this.GetImages();
-    this.init();
   }
 
   GetImages() {
     this.userService.getUser(this.tokenService.GetPayload()._id).subscribe(data => {
       this.user = data.user;
       this.images = this.user.images;
+      this.loading = false;
+      setTimeout(() => {
+        this.init();
+      }, 200);
     });
   }
 

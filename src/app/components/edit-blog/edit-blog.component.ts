@@ -20,9 +20,10 @@ export class EditBlogComponent implements OnInit {
   quill: any;
   images = [];
   socket: any;
+  error = false;
+  loading = true;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService, private router: Router, private userService: UserService) {
-    //this.socket = io('http://localhost:3000');
     this.socket = io('https://blogapp-backend.herokuapp.com');
   }
 
@@ -38,6 +39,7 @@ export class EditBlogComponent implements OnInit {
         this.blog = data1.blog;
         this.user = data2.user;
         this.images = this.user.images;
+        this.loading = false;
 
         setTimeout(()=>{
           this.quill = new Quill('#editor-container', {
